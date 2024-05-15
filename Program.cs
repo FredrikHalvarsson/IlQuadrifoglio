@@ -26,7 +26,7 @@ namespace IlQuadrifoglio
             {
                 client.BaseAddress = new Uri("https://localhost:7223/");
             });
-
+             
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
@@ -47,7 +47,7 @@ namespace IlQuadrifoglio
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }

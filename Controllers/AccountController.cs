@@ -21,7 +21,7 @@ namespace IlQuadrifoglio.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _apiService.LoginAsync(model.Username, model.Password);
+                var result = await _apiService.LoginAsync(model.Username, model.Password, model.RememberMe);
                 if (result)
                 {
                     return RedirectToAction("Index", "Home");
@@ -39,7 +39,7 @@ namespace IlQuadrifoglio.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _apiService.RegisterAsync(model.Username, model.Password, model.Email);
+                var result = await _apiService.RegisterAsync(model.Username, model.Password, model.ConfirmPassword, model.Email);
                 if (result)
                 {
                     return RedirectToAction("Login");
