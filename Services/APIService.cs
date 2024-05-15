@@ -26,9 +26,9 @@ namespace IlQuadrifoglio.Services
         }
 
         //Handle Login
-        public async Task<bool> LoginAsync(string username, string password)
+        public async Task<bool> LoginAsync(string username, string password, bool rememberMe)
         {
-            var response = await _client.PostAsJsonAsync("api/account/login", new LoginModel { Username = username, Password = password });
+            var response = await _client.PostAsJsonAsync("api/account/login", new LoginModel { Username = username, Password = password, RememberMe = rememberMe });
             if (response.IsSuccessStatusCode)
             {
                 var tokenResponse = await response.Content.ReadFromJsonAsync<TokenResponse>();
@@ -63,9 +63,17 @@ namespace IlQuadrifoglio.Services
 
 
         //Handle Register
-        public async Task<bool> RegisterAsync(string username, string password, string email)
+        public async Task<bool> RegisterAsync(string username, string password, string confirmPassword, string email)
         {
-            var response = await _client.PostAsJsonAsync("api/account/register", new { Username = username, Password = password, Email = email });
+            var payload = new
+            {
+                email = email,
+                password = password,
+                confirmPassword = confirmPassword,
+                username = username
+            };
+
+            var response = await _client.PostAsJsonAsync("api/account/register", payload);
             return response.IsSuccessStatusCode;
         }
 
