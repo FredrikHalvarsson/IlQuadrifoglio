@@ -2,6 +2,7 @@ using IlQuadrifoglio.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using IlQuadrifoglio.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace IlQuadrifoglio
 {
@@ -25,6 +26,16 @@ namespace IlQuadrifoglio
             {
                 client.BaseAddress = new Uri("https://localhost:7223/");
             });
+
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/Account/Login";
+                    options.AccessDeniedPath = "/Account/AccessDenied";
+                });
+
+            builder.Services.AddHttpContextAccessor();
+
             builder.Services.AddScoped<APIService>();
 
             var app = builder.Build();
@@ -51,7 +62,7 @@ namespace IlQuadrifoglio
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
-            app.MapRazorPages();
+            //app.MapRazorPages();
 
             app.Run();
         }
