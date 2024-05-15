@@ -1,6 +1,5 @@
 ﻿using IlQuadrifoglio.Models;
 using Newtonsoft.Json;
-using System.Net.Http;
 using System.Net.Http.Headers;
 
 namespace IlQuadrifoglio.Services
@@ -95,6 +94,79 @@ namespace IlQuadrifoglio.Services
         private class TokenResponse
         {
             public string Token { get; set; }
+        }
+
+        ////////////////////////////////////////////
+        ///////        Ingredients         ////////
+        //////////////////////////////////////////
+
+        public async Task<List<Ingredient>> GetIngredientsAsync() //Get ingredients
+        {
+            try
+            {
+                var response = await _client.GetAsync("api/ingredients");
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    var ingredients = JsonConvert.DeserializeObject<List<Ingredient>>(jsonString);
+                    return ingredients;
+                }
+                return new List<Ingredient>();
+            }
+            catch (Exception ex)
+            {
+                return new List<Ingredient>();
+            }
+        }
+
+        public async Task<bool> CreateIngredientAsync(Ingredient ingredient)
+        {
+            try
+            {
+                var response = await _client.PostAsJsonAsync("api/ingredients", ingredient);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public async Task<Ingredient> GetIngredientByIdAsync(int id)
+        {
+            var response = await _client.GetAsync($"api/ingredients/{id}");
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<Ingredient>();
+            }
+            else
+            {
+                throw new InvalidOperationException($"API failed with statuscode {response.StatusCode}");
+            }
+        }
+
+        public async Task<bool> UpdateIngredientAsync(int id, Ingredient ingredient)
+        {
+            try
+            {
+                var response = await _client.PutAsJsonAsync($"api/ingredients/{id}", ingredient);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public async Task<bool> DeleteIngredientAsync(int id)
+        {
+            try
+            {
+                var response = await _client.DeleteAsync($"api/ingredients/{id}");
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }
