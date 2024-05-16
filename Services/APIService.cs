@@ -176,5 +176,76 @@ namespace IlQuadrifoglio.Services
                 return false;
             }
         }
+
+        //OrderProducts
+
+        public async Task<List<OrderProduct>> GetOrderProductsAsync() //Get OrderProducts
+        {
+            try
+            {
+                var response = await _client.GetAsync("api/orderProduct");
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    var orderProducts = JsonConvert.DeserializeObject<List<OrderProduct>>(jsonString);
+                    return orderProducts;
+                }
+                return new List<OrderProduct>();
+            }
+            catch (Exception ex)
+            {
+                return new List<OrderProduct>();
+            }
+        }
+
+        public async Task<bool> CreateOrderProductAsync(OrderProduct orderProduct)
+        {
+            try
+            {
+                var response = await _client.PostAsJsonAsync("api/orderProduct", orderProduct);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public async Task<OrderProduct> GetOrderProductByIdAsync(int id)
+        {
+            var response = await _client.GetAsync($"api/orderProducts/{id}");
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<OrderProduct>();
+            }
+            else
+            {
+                throw new InvalidOperationException($"API failed with statuscode {response.StatusCode}");
+            }
+        }
+
+        public async Task<bool> UpdateOrderProductAsync(int id, OrderProduct orderProduct)
+        {
+            try
+            {
+                var response = await _client.PutAsJsonAsync($"api/orderProducts/{id}", orderProduct);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public async Task<bool> DeleteOrderProductAsync(int id)
+        {
+            try
+            {
+                var response = await _client.DeleteAsync($"api/orderProducts/{id}");
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }
