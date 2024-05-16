@@ -176,5 +176,78 @@ namespace IlQuadrifoglio.Services
                 return false;
             }
         }
+
+        ////////////////////////////////////////////
+        ///////        Products         ////////
+        //////////////////////////////////////////
+
+        public async Task<List<Product>> GetProductsAsync() //Get Products
+        {
+            try
+            {
+                var response = await _client.GetAsync("api/products");
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    var products = JsonConvert.DeserializeObject<List<Product>>(jsonString);
+                    return products;
+                }
+                return new List<Product>();
+            }
+            catch (Exception ex)
+            {
+                return new List<Product>();
+            }
+        }
+
+        public async Task<bool> CreateProductAsync(Product product)
+        {
+            try
+            {
+                var response = await _client.PostAsJsonAsync("api/products", product);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public async Task<Product> GetProductByIdAsync(int id)
+        {
+            var response = await _client.GetAsync($"api/products/{id}");
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<Product>();
+            }
+            else
+            {
+                throw new InvalidOperationException($"API failed with statuscode {response.StatusCode}");
+            }
+        }
+
+        public async Task<bool> UpdateProductAsync(int id, Product product)
+        {
+            try
+            {
+                var response = await _client.PutAsJsonAsync($"api/products/{id}", product);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public async Task<bool> DeleteProductAsync(int id)
+        {
+            try
+            {
+                var response = await _client.DeleteAsync($"api/products/{id}");
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }
