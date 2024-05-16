@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Product>
+
+@{
+    ViewData["Title"] = "Pizza Menu";
+}
+
+<div class="container d-flex justify-content-center vh-100">
+    <div class="w-75">
+        <section class="jumbotron text-center m-3">
+            <div class="container">
+                <h1 class="jumbotron-heading">Vår pizzameny</h1>
+                <p class="lead text-muted mb-5">Blalbalblalblablalbablalblalblablal balblablbl blblbl blblblblblblbl blblblblblblbl blblblblbbbbbaaaaa aaaaaa aaaaaaaa aalalalaaaaaa</p>
+
+                @* Kanske visa valet att logga in för att beställa om anv ej är inloggad?
+                <p>
+                <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">Logga in för att göra en beställning</a></li>
+                </p> *@
+            </div>
+        </section>
+        @if (Model.Any(p => p.ProductType == IlQuadrifoglio.Models.Type.Pizza))
+        {
+            @foreach (var product in Model.Where(p => p.ProductType == IlQuadrifoglio.Models.Type.Pizza))
+            {
+                <div class="container m-3">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-body">
+                            <h5 class="card-title">@product.ProductName <span class="text-end"> - @product.Price kr</span></h5>
+                            <p class="card-text">@product.ProductDescription</p>
+
+                            @* <form method="post" action="api/OrderProducts/Create">
+                    <input type="hidden" name="productId" value="@product.ProductId" />
+                    <div class="form-group">
+                    <label for="quantityDropdown">Quantity:</label>
+                    <select class="form-control" name="quantity">
+                    @for (int i = 1; i <= 10; i++)
+                    {
+                    <option value="@i">@i</option>
+                    }
+                    </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Beställ</button>
+                    </form> *@
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>No pizza products available.</p>
+        }
+    </div>
+</div>
