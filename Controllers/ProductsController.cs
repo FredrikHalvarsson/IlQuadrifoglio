@@ -7,9 +7,11 @@ namespace IlQuadrifoglio.Controllers
     public class ProductsController : Controller
     {
         private readonly APIService _apiService;
-        public ProductsController(APIService apiService)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public ProductsController(APIService apiService, IHttpContextAccessor httpContextAccessor)
         {
             _apiService = apiService;
+            _httpContextAccessor = httpContextAccessor;
         }
         public async Task<IActionResult> Index()
         {

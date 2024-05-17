@@ -20,3 +20,20 @@ html {
 body {
   margin-bottom: 60px;
 }
+.topContainer {
+    background-image: url('~/Images/pexels-narda-yescas-724842-1566837.jpg');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh; /* Adjust the height as needed */
+    color: white; /* Adjust text color if necessary */
+    opacity: .8;
+}
+
+.card-img-left
+{
+    width: 50%; /* Bilden fyller kortets bredd */
+    height: auto; /* Bevarar bildens proportioner */
+    object-fit: cover; /* Klipper av bilden om den är för stor, och fyller kortet */
+}
+}
