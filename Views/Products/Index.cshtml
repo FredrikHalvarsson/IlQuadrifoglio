@@ -11,10 +11,11 @@
                 <h1 class="jumbotron-heading">Vår pizzameny</h1>
                 <p class="lead text-muted mb-5">Blalbalblalblablalbablalblalblablal balblablbl blblbl blblblblblblbl blblblblblblbl blblblblbbbbbaaaaa aaaaaa aaaaaaaa aalalalaaaaaa</p>
 
-                @* Kanske visa valet att logga in för att beställa om anv ej är inloggad?
-                <p>
-                <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">Logga in för att göra en beställning</a></li>
-                </p> *@
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <p>
+                       <a class="btn btn-primary" asp-area="" asp-controller="Account" asp-action="Login">Logga in för att göra en beställning</a>
+                </p> }
             </div>
         </section>
         @if (Model.Any(p => p.ProductType == IlQuadrifoglio.Models.Type.Pizza))
