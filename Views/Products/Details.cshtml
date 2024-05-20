@@ -1,0 +1,31 @@
+﻿@model IlQuadrifoglio.Models.Product
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h2>@Model.ProductName</h2>
+                </div>
+                <div class="card-body">
+                    <p><strong>Description:</strong> @Model.ProductDescription</p>
+                    <p><strong>Price:</strong> @Model.Price kr</p>
+                    <p><strong>Type:</strong> @Model.ProductType</p>
+                    <p><strong>Special:</strong> @(Model.IsSpecial ? "Yes" : "No")</p>
+                    <p><strong>Sales Tax:</strong> @Model.SalesTax</p>
+                </div>
+                <div class="card-footer">
+                    <a asp-action="Edit" asp-route-id="@Model.ProductId" class="btn btn-outline-primary" data-toggle="tooltip" title="Redigera"><i class="bi bi-pencil"></i></a>
+                    <a asp-action="AdminMenu" class="btn btn-secondary">Tillbaka till menyn</a>
+                    <form asp-action="Delete" asp-route-id="@Model.ProductId" method="post" class="d-inline" onsubmit="return confirm('Är du säker på att du vill radera @Model.ProductName?')">
+                        <button type="submit" class="btn btn-outline-danger" data-toggle="tooltip" title="Radera"><i class="bi bi-trash"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

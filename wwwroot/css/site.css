@@ -32,7 +32,7 @@ body {
 
 .textContainer {
     background-color: rgba(0, 0, 0, 0);
-    padding: 3rem;
+    padding: 2rem;
     max-width: 100%; 
     text-align: center;
 }
@@ -42,4 +42,13 @@ body {
     width: 50%;
     height: auto;
     object-fit: cover;
+}
+
+.jumbotron {
+    background-color: rgba(0, 0, 0, 0);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: auto;
+    opacity: .9
 }

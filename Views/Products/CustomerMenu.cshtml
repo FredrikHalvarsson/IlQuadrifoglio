@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Product>
+
+@{
+    ViewData["Title"] = "Pizza Menu";
+}
+
+<div class="container-fluid p-0">
+    <div class="row">
+        <div class="col p-0">
+            <section class="jumbotron text-center text-white mb-0" style="background-image: url('/Images/pexels-daria-133959593-10260559.jpg'); background-size: cover;">
+                <div class="container textContainer">
+                    <h1 class="jumbotron-heading">Vår pizzameny</h1>
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <p>
+                            <a class="btn btn-primary" asp-area="" asp-controller="Account" asp-action="Login">Logga in för att göra en beställning</a>
+                        </p>
+                    }
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-10">
+            @if (Model.Any(p => p.ProductType == IlQuadrifoglio.Models.Type.Pizza))
+            {
+                @foreach (var product in Model.Where(p => p.ProductType == IlQuadrifoglio.Models.Type.Pizza))
+                {
+                    <div class="container m-3">
+                        <div class="card mb-4 box-shadow">
+                            <div class="card-body d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5 class="card-title">@product.ProductName <span class="text-end"> - @product.Price kr</span></h5>
+                                    <p class="card-text">@product.ProductDescription</p>
+                                </div>
+                                @* @if (User.Identity.IsAuthenticated){ *@
+                                <form onsubmit="event.preventDefault(); addOrderProduct(@product.ProductId);" class="d-flex flex-column">
+                                    <div class="form-group">
+                                        <label for="quantityDropdown">Antal</label>
+                                        <select class="form-control" name="quantity">
+                                            @for (int i = 1; i <= 10; i++)
+                                            {
+                                                <option value="@i">@i</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mt-2">Beställ</button>
+                                </form>
+                              @*   } *@
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>No pizza products available.</p>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    function addOrderProduct(productId) {
+        $.ajax({
+            url: '/api/OrderProducts/Create',
+            type: 'POST',
+            data: { productId: productId },
+            success: function (response) {
+                // Omdirigera till en annan sida när beställningen är lyckad
+                window.location.href = '/Products/SidesAndBeverages';
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("Error details:", jqXHR, textStatus, errorThrown);
+                alert('Något gick fel. Försök igen senare.');
+            }
+        });
+    }
+</script>
+
+
