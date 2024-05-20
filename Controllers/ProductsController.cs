@@ -4,72 +4,72 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace IlQuadrifoglio.Controllers
 {
-    public class IngredientsController : Controller
+    public class ProductsController : Controller
     {
         private readonly APIService _apiService;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public IngredientsController(APIService apiService, IHttpContextAccessor httpContextAccessor)
+        public ProductsController(APIService apiService, IHttpContextAccessor httpContextAccessor)
         {
             _apiService = apiService;
             _httpContextAccessor = httpContextAccessor;
         }
         public async Task<IActionResult> Index()
         {
-            var ingredients = await _apiService.GetIngredientsAsync();
-            if (ingredients == null || !ingredients.Any())
+            var products = await _apiService.GetProductsAsync();
+            if (products == null || !products.Any())
             {
-                return View(new List<Ingredient>());
+                return View(new List<Product>());
             }
+            ////Sortera efter typ av pizzor?
 
-            return View(ingredients);
+            return View(products);
         }
-        // Get: Ingredients/create
         public IActionResult Create()
         {
             return View();
         }
-        // Post:Ingredients/create
+        // Post:Products/create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Ingredient ingredient)
+        public async Task<IActionResult> Create(Product product)
         {
             if (ModelState.IsValid)
             {
-                await _apiService.CreateIngredientAsync(ingredient);
+                await _apiService.CreateProductAsync(product);
                 return RedirectToAction(nameof(Index));
             }
-            return View(ingredient);
+            return View(product);
         }
-        ////// GET: Ingredients/Edit/5
+        ////// GET: Products/Edit/5
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var ingredient = await _apiService.GetIngredientByIdAsync(id);
-            return View(ingredient);
+            var product = await _apiService.GetProductByIdAsync(id);
+            return View(product);
         }
-        ////// Uppdate an ingredient
+        ////// Uppdate a product
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, Ingredient ingredient)
+        public async Task<IActionResult> Edit(int id, Product product)
         {
             if (ModelState.IsValid)
             {
-                await _apiService.UpdateIngredientAsync(id, ingredient);
+                await _apiService.UpdateProductAsync(id, product);
                 return RedirectToAction(nameof(Index));
             }
-            return View(ingredient);
+            return View(product);
         }
-        // details of Ingredient
+        // details of product
         [HttpGet]
         public async Task<ActionResult> Details(int id)
         {
-            var ingredient = await _apiService.GetIngredientByIdAsync(id);
-            return View(ingredient);
+            var product = await _apiService.GetProductByIdAsync(id);
+            return View(product);
         }
 
         [HttpPost, ActionName("DeleteConfirmed")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await _apiService.DeleteIngredientAsync(id);
+            await _apiService.DeleteProductAsync(id);
             return RedirectToAction(nameof(Index));
         }
     }

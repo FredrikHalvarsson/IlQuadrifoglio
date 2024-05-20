@@ -176,6 +176,87 @@ namespace IlQuadrifoglio.Services
                 return false;
             }
         }
+      
+
+
+        ////////////////////////////////////////////
+        ///////        Products         ////////
+        //////////////////////////////////////////
+
+        public async Task<List<Product>> GetProductsAsync() //Get Products
+        {
+            try
+            {
+                var response = await _client.GetAsync("api/products");
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    var products = JsonConvert.DeserializeObject<List<Product>>(jsonString);
+                    return products;
+                }
+                return new List<Product>();
+            }
+            catch (Exception ex)
+            {
+                return new List<Product>();
+            }
+        }
+
+        public async Task<bool> CreateProductAsync(Product product)
+        {
+            try
+            {
+                var response = await _client.PostAsJsonAsync("api/products", product);
+
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+      
+              public async Task<Product> GetProductByIdAsync(int id)
+        {
+            var response = await _client.GetAsync($"api/products/{id}");
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<Product>();
+            }
+            else
+            {
+                throw new InvalidOperationException($"API failed with statuscode {response.StatusCode}");
+            }
+        }
+      
+              public async Task<bool> UpdateProductAsync(int id, Product product)
+        {
+            try
+            {
+                var response = await _client.PutAsJsonAsync($"api/products/{id}", product);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+      
+        public async Task<bool> DeleteProductAsync(int id)
+        {
+            try
+            {
+                var response = await _client.DeleteAsync($"api/products/{id}");
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+            ////////////////////////////////////////////
+        ///////      OrderProducts       ////////
+        //////////////////////////////////////////
 
         //OrderProducts
 
@@ -203,20 +284,20 @@ namespace IlQuadrifoglio.Services
             try
             {
                 var response = await _client.PostAsJsonAsync("api/orderProduct", orderProduct);
-                return response.IsSuccessStatusCode;
-            }
+                          }
             catch (Exception ex)
             {
                 return false;
             }
         }
+
         public async Task<OrderProduct> GetOrderProductByIdAsync(int id)
         {
             var response = await _client.GetAsync($"api/orderProducts/{id}");
             if (response.IsSuccessStatusCode)
             {
                 return await response.Content.ReadFromJsonAsync<OrderProduct>();
-            }
+              }
             else
             {
                 throw new InvalidOperationException($"API failed with statuscode {response.StatusCode}");
@@ -235,6 +316,7 @@ namespace IlQuadrifoglio.Services
                 return false;
             }
         }
+
         public async Task<bool> DeleteOrderProductAsync(int id)
         {
             try
@@ -247,5 +329,79 @@ namespace IlQuadrifoglio.Services
                 return false;
             }
         }
+
+      
+      ////////////////////////////////////////////
+///////           Order            ////////
+//////////////////////////////////////////
+
+public async Task<List<Order>> GetOrderAsync() //Get order
+{
+    try
+    {
+        var response = await _client.GetAsync("api/orders");
+        if (response.IsSuccessStatusCode)
+        {
+            var jsonString = await response.Content.ReadAsStringAsync();
+            var orders = JsonConvert.DeserializeObject<List<Order>>(jsonString);
+            return orders;
+        }
+        return new List<Order>();
+    }
+    catch (Exception ex)
+    {
+        return new List<Order>();
+    }
+}
+
+public async Task<bool> CreateOrderAsync(Order order)
+{
+    try
+    {
+        var response = await _client.PostAsJsonAsync("api/orders", order);
+        return response.IsSuccessStatusCode;
+    }
+    catch (Exception ex)
+    {
+        return false;
+    }
+}
+public async Task<Order> GetOrderByIdAsync(int id)
+{
+    var response = await _client.GetAsync($"api/orders/{id}");
+    if (response.IsSuccessStatusCode)
+    {
+        return await response.Content.ReadFromJsonAsync<Order>();
+    }
+    else
+    {
+        throw new InvalidOperationException($"API failed with statuscode {response.StatusCode}");
+    }
+}
+
+public async Task<bool> UpdateOrderAsync(int id, Order order)
+{
+    try
+    {
+        var response = await _client.PutAsJsonAsync($"api/order/{id}", order);
+        return response.IsSuccessStatusCode;
+    }
+    catch (Exception ex)
+    {
+        return false;
+    }
+}
+public async Task<bool> DeleteOrderAsync(int id)
+{
+    try
+    {
+        var response = await _client.DeleteAsync($"api/order/{id}");
+        return response.IsSuccessStatusCode;
+    }
+    catch (Exception ex)
+    {
+        return false;
+    }
+}
     }
 }

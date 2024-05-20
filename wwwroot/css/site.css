@@ -20,3 +20,26 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/* HOME PAGE */
+.imgContainer {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: auto; 
+    opacity:.9
+}
+
+.textContainer {
+    background-color: rgba(0, 0, 0, 0);
+    padding: 3rem;
+    max-width: 100%; 
+    text-align: center;
+}
+
+.card-img-left
+{
+    width: 50%;
+    height: auto;
+    object-fit: cover;
+}
