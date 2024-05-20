@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Product>
+
+@{
+    ViewData["Title"] = "Sides and beverages";
+}
+
+<section class="jumbotron text-center">
+    <div class="container">
+        <h2 class="jumbotron-heading">Vill du ha något mer?</h2>
+    </div>
+</section>
+<br />
+<h2>Dycker</h2>
+@if (Model.Any(p => p.ProductType == IlQuadrifoglio.Models.Type.Beverage)){
+    @foreach (var product in Model.Where(p => p.ProductType == IlQuadrifoglio.Models.Type.Beverage))
+{
+    <div class="container">
+        <div class="card mb-4 box-shadow">
+            <div class="card-body">
+                <h5 class="card-title">@product.ProductName <span class="text-end">- @product.Price</span></h5>
+                <div class="d-flex justify-content-end align-items-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-md btn-outline-secondary">Lägg till</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+}
+else{ 
+    <p>Det finns inga drycker</p>
+}
+
+<h2>Tillbehör</h2>
+@if (Model.Any(p => p.ProductType == IlQuadrifoglio.Models.Type.Sides)){
+
+@foreach (var product in Model.Where(p => p.ProductType == IlQuadrifoglio.Models.Type.Sides))
+{
+    <div class="container">
+        <div class="card mb-4 box-shadow">
+            <div class="card-body">
+                <h5 class="card-title">@product.ProductName <span class="text-end">- @product.Price</span></h5>
+                <div class="d-flex justify-content-end align-items-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-md btn-outline-secondary">Lägg till</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  }
+}
+else{ 
+    <p>Det finns inga tillbehör</p>
+}
+<button type="button" class="btn btn-md btn-outline-secondary">Nej tack</button> @* redirecta till kundkorgen *@

@@ -1,8 +1,93 @@
-﻿@{
+﻿@model IEnumerable<Product>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="position-relative overflow-hidden p-5 p-md-5 text-center imgContainer d-flex justify-content-center align-items-center" style="background-image: url('/Images/pexels-daria-133959593-10260559.jpg');">
+    <div class="col-md-8 p-lg-5 mx-auto my-5 textContainer p-3">
+        <h1 class="display-4 font-weight-normal text-white">Unna dig en smakrik resa till Italien med våra autentiska pizzor</h1>
+        <p class="lead text-white">Vi levererar härliga pizzor direkt till din dörr från en av våra tre restauranger</p>
+        <a class="btn btn-success mt-2" asp-area="" asp-controller="Products" asp-action="Index">Beställ nu!</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center mb-3 mt-3">
+            <h2 class="featurette-heading">Vår mumsiga meny</h2>
+            <p class="text-muted">Ta del av våra läckra maträtter tillgängliga för leverans.</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card flex-row mb-4 border-0">
+                <img class="card-img-left example-card-img-responsive" src="/Images/pexels-kampus-6605214.jpg" alt="Margherita">
+                <div class="card-body m-3">
+                    <h4 class="card-title h5 h4-sm">Margherita</h4>
+                    <p class="card-text">Äta götta!</p>
+                    <h5>129 kr</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card flex-row mb-4 border-0">
+                <img class="card-img-left example-card-img-responsive" src="/Images/pexels-kampus-6605214.jpg" alt="Margherita2">
+                <div class="card-body m-3">
+                    <h4 class="card-title h5 h4-sm">Margherita speciale</h4>
+                    <p class="card-text">gottgott!</p>
+                    <h5>149 kr</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-12 text-center">
+            <a class="btn btn-success btn-md" asp-area="" asp-controller="Products" asp-action="Index">Se hela menyn!</a>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-12 text-center">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Vår historia</h2>
+                    <p class="card-text">Vi är en familjeägd pizzeria som brinner för att leverera smakrika pizzor till våra kunder. Med färska ingredienser och passion för matlagning har vi serverat goda rätter i många år. Vår kärlek till mat och service genomsyrar allt vi gör.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5 mb-2">
+        <div class="col-12 text-center">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Kontakta oss</h4>
+                    <h6 class="card-subtitle mb-2 text-muted">Har du frågor eller vill beställa? Vi ser fram emot att höra av dig!</h6>
+                    <p class="card-text">
+                        <ul class="list-unstyled">
+                            <li>1:a Exempelgatan, Exempelstad, Exempelland</li>
+                            <li>+1 234 567 8910</li>
+                            <li>order@ilquadifolio.com</li>
+                        </ul>
+                        <ul class="list-unstyled">
+                            <h4>Våra öppettider</h4>
+                            <li>Måndag-fredag: 8:00-18:00</li>
+                            <li>Lördag: 10:00-16:00</li>
+                            <li>Söndag: stängt</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="position-relative overflow-hidden p-5 p-md-5 text-center imgContainer" style="background-image: url('/Images/pexels-daria-133959593-10260559.jpg');">
+        <div class="col-md-8 p-lg-5 mx-auto my-5 textContainer">
+            <h1 class="display-4 font-weight-normal text-white">Ny vecka - ny pizza!</h1>
+            <p class="lead text-white">Varje vecka uppdaterar vi vår pizzameny med en veckans special, kanske hittar du en ny favorit!</p>
+            <a class="btn btn-success" asp-area="" asp-controller="Products" asp-action="Index">Till menyn</a>
+        </div>
+    </div>
 </div>
