@@ -27,7 +27,9 @@
                             <p class="card-text">@product.ProductDescription</p>
                             <a asp-action="Edit" asp-route-id="@product.ProductId" class="btn btn-outline-primary" data-toggle="tooltip" title="Redigera"><i class="bi bi-pencil"></i></a>
                             <a asp-action="Details" asp-route-id="@product.ProductId" class="btn btn-outline-info" data-toggle="tooltip" title="Information"><i class="bi bi-info-circle"></i></a>
-                            <a asp-action="Delete" asp-route-id="@product.ProductId" class="btn btn-outline-danger" data-toggle="tooltip" title="Radera"><i class="bi bi-trash"></i></a>
+                            <form asp-action="Delete" asp-route-id="@product.ProductId" method="post" class="d-inline" onsubmit="return confirm('Är du säker på att du vill radera @product.ProductName?')">
+                                <button type="submit" class="btn btn-outline-danger" data-toggle="tooltip" title="Radera"><i class="bi bi-trash"></i></button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -49,7 +51,9 @@
                             <p class="card-text">@product.ProductDescription</p>
                             <a asp-action="Edit" asp-route-id="@product.ProductId" class="btn btn-outline-primary" data-toggle="tooltip" title="Redigera"><i class="bi bi-pencil"></i></a>
                             <a asp-action="Details" asp-route-id="@product.ProductId" class="btn btn-outline-info" data-toggle="tooltip" title="Information"><i class="bi bi-info-circle"></i></a>
-                            <a asp-action="Delete" asp-route-id="@product.ProductId" class="btn btn-outline-danger" data-toggle="tooltip" title="Radera"><i class="bi bi-trash"></i></a>
+                            <form asp-action="Delete" asp-route-id="@product.ProductId" method="post" class="d-inline" onsubmit="return confirm('Är du säker på att du vill radera @product.ProductName?')">
+                                <button type="submit" class="btn btn-outline-danger" data-toggle="tooltip" title="Radera"><i class="bi bi-trash"></i></button>
+                            </form>
                         </div>
                     </div>
                 </div>
