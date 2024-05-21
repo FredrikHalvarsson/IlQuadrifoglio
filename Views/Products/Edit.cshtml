@@ -1,0 +1,42 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = "Redigera produkt";
+}
+
+<h1>Redigera produkt</h1>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="ProductId" />
+
+    <div class="form-group">
+        <label asp-for="ProductName"></label>
+        <input type="text" class="form-control" asp-for="ProductName" />
+        <span asp-validation-for="ProductName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ProductDescription"></label>
+        <textarea class="form-control" rows="3" asp-for="ProductDescription"></textarea>
+        <span asp-validation-for="ProductDescription" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Price"></label>
+        <input type="number" class="form-control" asp-for="Price" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ProductType"></label>
+        <select class="form-control" asp-for="ProductType">
+            <option value="Pizza">Pizza</option>
+            <option value="Sides">Tillbehör</option>
+            <option value="Beverage">Dryck</option>
+        </select>
+        <span asp-validation-for="ProductType" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Uppdatera</button>
+</form>
+<a asp-action="AdminMenu" class="btn btn-secondary">Tillbaka till menyn</a>
