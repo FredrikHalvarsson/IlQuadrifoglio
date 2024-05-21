@@ -38,6 +38,9 @@ namespace IlQuadrifoglio
 
             builder.Services.AddScoped<APIService>();
 
+            builder.Services.AddTransient<LocationService>();
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
