@@ -27,14 +27,8 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="CustomerMenu">Meny</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="CustomerMenu"> Meny</a>
                         </li>
-                        @if (User.IsInRole("admin"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="AdminMenu">Meny (Admin)</a>
-                            </li>
-                        }
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Location" asp-action="Index">Location</a>
                         </li>
