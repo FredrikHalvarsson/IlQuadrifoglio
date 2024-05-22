@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 
 namespace IlQuadrifoglio.Models
 {
-    public class ApplicationUser :IdentityUser
+    public class ApplicationUser : IdentityUser
     {
 
         [StringLength(50, ErrorMessage = "Name can't be longer than 50 characters")]
@@ -21,6 +21,16 @@ namespace IlQuadrifoglio.Models
         public virtual ICollection<Address>? Addresses { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public IEnumerable<Order>? Orders { get; set; }
+        public List<Order>? Orders { get; set; }
+
+        public ApplicationUser()
+        {
+            Orders = new List<Order>();
+
+            Orders.Add(new Order
+            {
+                FkCustomerId = this.Id
+            });
+        }
     }
 }
