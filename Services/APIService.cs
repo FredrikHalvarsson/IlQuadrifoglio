@@ -1,6 +1,9 @@
 ﻿using IlQuadrifoglio.Models;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using System.Text.Json;
+using System.Threading.Tasks;
+
 
 namespace IlQuadrifoglio.Services
 {
@@ -15,53 +18,21 @@ namespace IlQuadrifoglio.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        private void AddJwtTokenToRequest()
-        {
-            var token = _httpContextAccessor.HttpContext.Request.Cookies["jwtToken"];
-            if (!string.IsNullOrEmpty(token))
-            {
-                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            }
-        }
-
-        //Handle Login
         public async Task<bool> LoginAsync(string username, string password, bool rememberMe)
         {
             var response = await _client.PostAsJsonAsync("api/account/login", new LoginModel { Username = username, Password = password, RememberMe = rememberMe });
             if (response.IsSuccessStatusCode)
             {
-                var tokenResponse = await response.Content.ReadFromJsonAsync<TokenResponse>();
-                var token = tokenResponse?.Token;
-
-                if (!string.IsNullOrEmpty(token))
+                var authCookie = response.Headers.GetValues("Set-Cookie");
+                foreach (var cookie in authCookie)
                 {
-                    var cookieOptions = new CookieOptions
-                    {
-                        HttpOnly = true,
-                        Expires = DateTime.Now.AddMinutes(30)
-                    };
-                    _httpContextAccessor.HttpContext.Response.Cookies.Append("jwtToken", token, cookieOptions);
-
-                    return true;
+                    _httpContextAccessor.HttpContext.Response.Headers.Append("Set-Cookie", cookie);
                 }
+                return true;
             }
             return false;
         }
 
-        //// Example method to call a protected API endpoint
-        //public async Task<string> GetProtectedResourceAsync()
-        //{
-        //    AddJwtTokenToRequest();
-        //    var response = await _client.GetAsync("api/protected/resource");
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        return await response.Content.ReadAsStringAsync();
-        //    }
-        //    return null;
-        //}
-
-
-        //Handle Register
         public async Task<bool> RegisterAsync(string username, string password, string confirmPassword, string email)
         {
             var payload = new
@@ -76,28 +47,101 @@ namespace IlQuadrifoglio.Services
             return response.IsSuccessStatusCode;
         }
 
-        //Get all users
-        public async Task<List<ApplicationUser>> GetUsersAsync()
+        public async Task<List<string>> GetUserRolesAsync(string username)
         {
-            try
+            var response = await _client.GetAsync($"api/account/getroles?username={username}");
+            if (response.IsSuccessStatusCode)
             {
-                var response = await _client.GetAsync("api/applicationusers");
-                if (!response.IsSuccessStatusCode)
-                {
-                    return new List<ApplicationUser>();
-                }
-                var jsonstring = await response.Content.ReadAsStringAsync();
-                var users = JsonConvert.DeserializeObject<List<ApplicationUser>>(jsonstring);
-                return users;
+                var jsonString = await response.Content.ReadAsStringAsync();
+                var roles = JsonConvert.DeserializeObject<List<string>>(jsonString);
+                return roles;
             }
-            catch (Exception ex)
-            {
-                return new List<ApplicationUser>();
-            }
+            return new List<string>();
         }
 
-        //Create a user
-        //...
+        //private void AddJwtTokenToRequest()
+        //{
+        //    var token = _httpContextAccessor.HttpContext.Request.Cookies["jwtToken"];
+        //    if (!string.IsNullOrEmpty(token))
+        //    {
+        //        _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        //    }
+        //}
+
+        ////Handle Login
+        //public async Task<bool> LoginAsync(string username, string password, bool rememberMe)
+        //{
+        //    var response = await _client.PostAsJsonAsync("api/account/login", new LoginModel { Username = username, Password = password, RememberMe = rememberMe });
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        var tokenResponse = await response.Content.ReadFromJsonAsync<TokenResponse>();
+        //        var token = tokenResponse?.Token;
+
+        //        if (!string.IsNullOrEmpty(token))
+        //        {
+        //            var cookieOptions = new CookieOptions
+        //            {
+        //                HttpOnly = true,
+        //                Expires = DateTime.Now.AddMinutes(30)
+        //            };
+        //            _httpContextAccessor.HttpContext.Response.Cookies.Append("jwtToken", token, cookieOptions);
+
+        //            return true;
+        //        }
+        //    }
+        //    return false;
+        //}
+
+        ////// Example method to call a protected API endpoint
+        ////public async Task<string> GetProtectedResourceAsync()
+        ////{
+        ////    AddJwtTokenToRequest();
+        ////    var response = await _client.GetAsync("api/protected/resource");
+        ////    if (response.IsSuccessStatusCode)
+        ////    {
+        ////        return await response.Content.ReadAsStringAsync();
+        ////    }
+        ////    return null;
+        ////}
+
+
+        ////Handle Register
+        //public async Task<bool> RegisterAsync(string username, string password, string confirmPassword, string email)
+        //{
+        //    var payload = new
+        //    {
+        //        email = email,
+        //        password = password,
+        //        confirmPassword = confirmPassword,
+        //        username = username
+        //    };
+
+        //    var response = await _client.PostAsJsonAsync("api/account/register", payload);
+        //    return response.IsSuccessStatusCode;
+        //}
+
+        ////Get all users
+        //public async Task<List<ApplicationUser>> GetUsersAsync()
+        //{
+        //    try
+        //    {
+        //        var response = await _client.GetAsync("api/applicationusers");
+        //        if (!response.IsSuccessStatusCode)
+        //        {
+        //            return new List<ApplicationUser>();
+        //        }
+        //        var jsonstring = await response.Content.ReadAsStringAsync();
+        //        var users = JsonConvert.DeserializeObject<List<ApplicationUser>>(jsonstring);
+        //        return users;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return new List<ApplicationUser>();
+        //    }
+        //}
+
+        ////Create a user
+        ////...
 
         private class TokenResponse
         {
