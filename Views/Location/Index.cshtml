@@ -1,80 +1,4 @@
-﻿@* @model Dictionary<string, string>
-
-@{
-    ViewData["Title"] = "Location Index";
-}
-
-<h2>Location Index</h2>
-
-<div id="map" style="height: 400px; width: 100%; margin-top: 20px;"></div>
-
-@if (Model != null && Model.ContainsKey("clickedAddress"))
-{
-    <h3>Clicked Address:</h3>
-    <p>@Model["clickedAddress"]</p>
-}
-
-<div id="partial-container"></div> <!-- Container for the partial view -->
-@section Scripts {
-    <script>
-        var map;
-        var currentLocation;
-
-        function getGeolocation(address) {
-            $.get("~/Views/Location/LocationPartial", function (data) {
-                $("#partial-container").html(data);
-
-                initMap();
-            });
-        }
-
-        
-
-        function getGeocode(latLng) {
-            var lat = latLng.lat();
-            var lng = latLng.lng();
-            var address = lat + ',' + lng;
-
-            $.ajax({
-                url: 'https://localhost:7223/api/locationapi/geocode',
-                type: 'GET',
-                data: { address: address },
-                success: function (response) {
-                    displayAddress(response.formatted_address, latLng);
-                },
-                error: function (xhr, status, error) {
-                    console.error('Error:', error);
-                }
-            });
-        }
-
-        function displayAddress(address, latLng) {
-            $('#clickedAddress').remove();
-            $('<div id="clickedAddress"><h3>Clicked Address:</h3><p>' + address + '</p></div>').insertAfter('#map');
-
-            // Now get the route from the current location to the clicked address
-            var origin = currentLocation.lat + ',' + currentLocation.lng;
-            var destination = latLng.lat() + ',' + latLng.lng();
-
-            $.ajax({
-                url: 'https://localhost:7223/api/locationapi/route',
-                type: 'GET',
-                data: { origin: origin, destination: destination },
-                success: function (response) {
-                    displayRoute(response);
-                },
-                error: function (xhr, status, error) {
-                    console.error('Error:', error);
-                }
-            });
-        }
-
-        function displayRoute(route) {
-            $('#route').remove();
-            $('<div id="route"><h3>Route:</h3><p>' + JSON.stringify(route) + '</p></div>').insertAfter('#clickedAddress');
-        }
-    </script>
-} *@
+﻿@model IlQuadrifoglio.ViewModels.IndexViewModel
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -86,7 +10,7 @@
 
     <!-- Include jQuery for AJAX requests -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+    <script>var userName = Model.UserName</script>
     <!-- JavaScript code -->
     <script src="~/js/location-script.js"></script>
 </body>

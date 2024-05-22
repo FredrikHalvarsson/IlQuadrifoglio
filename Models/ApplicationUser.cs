@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Net;
 using System.Text.Json.Serialization;
 
 namespace IlQuadrifoglio.Models
@@ -16,11 +17,8 @@ namespace IlQuadrifoglio.Models
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string? LastName { get; set; }
 
-        [StringLength(50, ErrorMessage = "Address can't be longer than 50 characters")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public string? Address { get; set; }
-        //public double? Latitude { get; set; }
-        //public double? Longitude { get; set; }
+        public virtual ICollection<Address>? Addresses { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public IEnumerable<Order>? Orders { get; set; }
