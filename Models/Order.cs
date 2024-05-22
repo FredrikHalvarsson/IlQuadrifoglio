@@ -6,11 +6,12 @@ namespace IlQuadrifoglio.Models
 {
     public enum Status
     {
+        Unsent,
         Pending,
         Preparing,
         Delivering,
         Delivered
-        
+
     }
     public class Order
     {
@@ -28,6 +29,6 @@ namespace IlQuadrifoglio.Models
         public ApplicationUser? Customer { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public IEnumerable<OrderProduct> OrderProducts { get; set; }
+        public List<OrderProduct>? OrderProducts { get; set; }
     }
 }

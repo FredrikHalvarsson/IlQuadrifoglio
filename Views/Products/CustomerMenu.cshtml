@@ -3,6 +3,13 @@
 @{
     ViewData["Title"] = "Pizza Menu";
 }
+@* @if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+} *@
 
 <div class="container-fluid p-0">
     <div class="row">
@@ -33,20 +40,14 @@
                                     <h5 class="card-title">@product.ProductName <span class="text-end"> - @product.Price kr</span></h5>
                                     <p class="card-text">@product.ProductDescription</p>
                                 </div>
-                                @* @if (User.Identity.IsAuthenticated){ *@
-                                <form onsubmit="event.preventDefault(); addOrderProduct(@product.ProductId);" class="d-flex flex-column">
-                                    <div class="form-group">
-                                        <label for="quantityDropdown">Antal</label>
-                                        <select class="form-control" name="quantity">
-                                            @for (int i = 1; i <= 10; i++)
-                                            {
-                                                <option value="@i">@i</option>
-                                            }
-                                        </select>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary mt-2">Beställ</button>
-                                </form>
-                              @*   } *@
+                              @*   <form id="add-to-cart-form" asp-action="Create" asp-controller="OrderProducts" asp-route-id="@product.ProductId" method="post" class="d-inline">
+                                    <input type="hidden" name="productId" value="@product.ProductId" />
+                                    <input type="hidden" name="quantity" value="1" />
+                                    <button type="submit" class="btn btn-outline-primary" data-toggle="tooltip" title="Lägg till i varukorgen">
+                                        <i class="bi bi-cart-plus"></i>
+                                    </button>
+                                </form> *@
+
                             </div>
                         </div>
                     </div>
@@ -59,23 +60,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    function addOrderProduct(productId) {
-        $.ajax({
-            url: '/api/OrderProducts/Create',
-            type: 'POST',
-            data: { productId: productId },
-            success: function (response) {
-                // Omdirigera till en annan sida när beställningen är lyckad
-                window.location.href = '/Products/SidesAndBeverages';
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log("Error details:", jqXHR, textStatus, errorThrown);
-                alert('Något gick fel. Försök igen senare.');
-            }
-        });
-    }
-</script>
-
-
