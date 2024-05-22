@@ -1,24 +1,32 @@
-﻿using IlQuadrifoglio.Services;
+﻿using IlQuadrifoglio.Models;
+using IlQuadrifoglio.Services;
+using IlQuadrifoglio.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
+using System.Security.Claims;
 
 namespace IlQuadrifoglio.Controllers
 {
     public class LocationController : Controller
     {
         private readonly LocationService _locationService;
-        private readonly ICompositeViewEngine _viewEngine;
-
-        public LocationController(LocationService locationService, ICompositeViewEngine viewEngine)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public LocationController(LocationService locationService, IHttpContextAccessor httpContextAccessor)
         {
             _locationService = locationService;
-            _viewEngine = viewEngine;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var userName = User.FindFirstValue(ClaimTypes.Name);
+            var model = new IndexViewModel
+            {
+                UserName = userName
+            };
+            return View(model);
         }
 
         [HttpGet("geocode")]
