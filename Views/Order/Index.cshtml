@@ -1,39 +1,93 @@
 ﻿@model IEnumerable<IlQuadrifoglio.Models.Order>
 
-<h1>Orders</h1>
+<body class="body-order">
+    
+    <div class="row mt-5 mb-2">
+        <div class="col-12 text-center">
+            <h1>Kassa</h1>
+            <div class="card">
+                <div class="card-body">
+    <h2>Dina varor</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+    @if (Model != null && Model.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Produktnamn</th>
+                    <th>Pris</th>
+                    <th>Kvantitet</th>
+                    <th>Summa</th>
+                    <th>Åtgärder</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model)
+                {
+                    @foreach (var item in order.OrderProducts)
+                    {
+                        <tr>
+                            <td>@item.Product.ProductName</td>
+                            <td>@item.Quantity</td>  @* lägga till och ta bort antal *@
+                            <td>@item.Product.Price.ToString("C")</td>
+                            <td>@(item.Product.Price * item.Quantity).ToString("C")</td>
+                            <td>
+                                <a href="@Url.Action("Edit", "OrderProducts", new { id = item.OrderProductId })" class="btn btn-primary">Redigera</a>
+                                @using (Html.BeginForm("DeleteConfirmed", "OrderProducts", FormMethod.Post))
+                                {
+                                    @Html.Hidden("id", item.OrderProductId)
+                                    <button type="submit" class="btn btn-danger">Ta bort</button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <div class="total">
+            <h3>Total: @Model.SelectMany(order => order.OrderProducts).Sum(item => item.Product.Price * item.Quantity).ToString("C")</h3>
+        </div>
+}
+    else
+    {
+        <p>Din kundvagn är tom.</p>
+    }
+                </div>
+            </div>
+        </div>
+    </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.OrderId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrderStatus)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OrderId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OrderStatus)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.OrderId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.OrderId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+
+<div class="row mt-5 mb-2">
+    <div class="col-12 text-center">
+        <div class="card">
+            <div class="card-body">
+    <h2>Välj leveransadress</h2>
+
+    <div id="partial-container"></div>
+
+    <!-- Include jQuery for AJAX requests -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- JavaScript code -->
+    <script src="~/js/location-script.js"></script>
+</div>
+
+        </div>
+    </div>
+</div>
+</div>
+
+@using (Html.BeginForm("SaveOrder", "Order", FormMethod.Post))
+{
+        <div class="row mt-5 mb-2">
+    <div class="col-12 text-center">
+                
+                    
+                        <button type="submit" class="btn btn-three">Beställ</button>
+        
+        </div>
+        </div>
+}
+
+</body>
