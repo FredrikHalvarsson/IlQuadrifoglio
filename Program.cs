@@ -1,6 +1,3 @@
-using IlQuadrifoglio.Data;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using IlQuadrifoglio.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Net.Http.Headers;
@@ -17,7 +14,7 @@ namespace IlQuadrifoglio
             // Add services to the container.
             //var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             //builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                //options.UseSqlServer(connectionString));
+            //options.UseSqlServer(connectionString));
             //builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             //builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -31,7 +28,7 @@ namespace IlQuadrifoglio
                 client.BaseAddress = new Uri("https://localhost:7223/");
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             });
-             
+
             builder.Services.AddScoped<APIService>();
 
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

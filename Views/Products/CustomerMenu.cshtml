@@ -56,13 +56,13 @@
                         }
                         @if (User.IsInRole("customer"))
                         {
-                            @*   <form id="add-to-cart-form" asp-action="Create" asp-controller="OrderProducts" asp-route-id="@product.ProductId" method="post" class="d-inline">
+                              <form id="add-to-cart-form" asp-action="Create" asp-controller="OrderProducts" asp-route-id="@product.ProductId" method="post" class="d-inline">
                 <input type="hidden" name="productId" value="@product.ProductId" />
                 <input type="hidden" name="quantity" value="1" />
                 <button type="submit" class="btn btn-outline-primary" data-toggle="tooltip" title="Lägg till i varukorgen">
                 <i class="bi bi-cart-plus"></i>
                 </button>
-                </form> *@
+                </form>
                         }
                     </div>
                     </div>
