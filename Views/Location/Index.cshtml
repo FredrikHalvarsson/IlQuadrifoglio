@@ -10,7 +10,7 @@
 
     <!-- Include jQuery for AJAX requests -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>var userName = Model.UserName</script>
+    <script>var userName = '@Html.Raw(Model.UserName)';</script>
     <!-- JavaScript code -->
     <script src="~/js/location-script.js"></script>
 </body>
