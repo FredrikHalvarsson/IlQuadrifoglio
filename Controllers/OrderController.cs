@@ -1,5 +1,6 @@
 ﻿using IlQuadrifoglio.Models;
 using IlQuadrifoglio.Services;
+using Microsoft.AspNetCore.Mvc;
 using IlQuadrifoglio.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -72,9 +73,6 @@ namespace IlQuadrifoglio.Controllers
             return View(order);
         }
 
-
-
-
         // GET: Orders/Edit/5
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
@@ -126,7 +124,6 @@ namespace IlQuadrifoglio.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        
 
         // POST: Orders/DeleteOrderProduct/5
         [HttpPost]
