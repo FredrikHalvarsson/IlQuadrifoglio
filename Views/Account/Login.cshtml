@@ -70,25 +70,6 @@
             }
     </style>
 </head>
-    <h2>Login</h2>
-        <form id="loginForm" method="post" asp-controller="Account" asp-action="Login">
-            <div>
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-            </div>
-            <div>
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <div>
-                <label for="rememberMe">Remember Me:</label>
-                <input type="checkbox" id="rememberMe" name="rememberMe" value="true">
-            </div>
-            <button type="submit">Login</button>
-        </form>
-
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 <body>
     <h2>Login</h2>
     <form id="loginForm" method="post" asp-controller="Account" asp-action="Login">

@@ -7,4 +7,6 @@ function loadPartialView() {
 }
 
 // Call the function to load the partial view
-loadPartialView();
+$(document).ready(function () {
+    loadPartialView();
+});

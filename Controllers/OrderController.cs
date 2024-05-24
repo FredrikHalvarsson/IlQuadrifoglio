@@ -1,6 +1,13 @@
 ﻿using IlQuadrifoglio.Models;
 using IlQuadrifoglio.Services;
 using Microsoft.AspNetCore.Mvc;
+using IlQuadrifoglio.ViewModels;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace IlQuadrifoglio.Controllers
 {
@@ -8,23 +15,30 @@ namespace IlQuadrifoglio.Controllers
     {
         private readonly APIService _apiService;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly LocationService _locationService;
 
-
-        public OrderController(APIService apiService, IHttpContextAccessor httpContextAccessor)
+        public OrderController(APIService apiService, IHttpContextAccessor httpContextAccessor, LocationService locationService)
         {
             _apiService = apiService;
             _httpContextAccessor = httpContextAccessor;
+            _locationService = locationService;
         }
 
         public async Task<IActionResult> Index()
         {
+            var userName = User.FindFirstValue(ClaimTypes.Name);
             var orders = await _apiService.GetOrderAsync();
-            if (orders == null || !orders.Any())
+            var model = new OrderViewModel
             {
-                return View(new List<Order>());
-            }
+                UserName = userName,
+                Orders = orders ?? new List<Order>()
+            };
+            //if (orders == null || !orders.Any())
+            //{
+            //    return View(new List<Order>());
+            //}
 
-            return View(orders);
+            return View(model);
         }
 
         // Get: Orders/Create

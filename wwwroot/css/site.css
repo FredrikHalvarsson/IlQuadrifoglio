@@ -21,13 +21,34 @@ body {
     margin-bottom: 60px;
 }
 
+
+
+/* För rubriker */
+h1, h2 {
+    font-family: "Big Shoulders Inline Display", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 900;
+    font-style: normal;
+}
+
+/* För textstycken */
+h3, h4, h5, h6, p {
+    font-family: "Big Shoulders Text", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+    
+
 /* HOME PAGE */
 .imgContainer {
-    background-size: contain;
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     height: auto;
-    opacity: .9
+    opacity: .7;
+
 }
 
 .textContainer {
@@ -35,7 +56,16 @@ body {
     padding: 2rem;
     max-width: 100%;
     text-align: center;
+    color: #fff;
 }
+.textContainer h1{
+    font-size: 70px;
+    padding-bottom: 1rem;
+}
+    .textContainer h5 {
+        font-size: 20px;
+        padding-bottom: 1rem;
+    }
 
 .card-img-left {
     width: 50%;
