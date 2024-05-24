@@ -25,7 +25,7 @@ namespace IlQuadrifoglio.Models
 
         [ForeignKey("Customer")]
         public string FkCustomerId { get; set; }
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonIgnore]
         public ApplicationUser? Customer { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
