@@ -30,7 +30,7 @@
                             <td>@item.Product.ProductName</td>
                             <td>@item.Quantity</td>  @* lägga till och ta bort antal *@
                             <td>@item.Product.Price.ToString("C")</td>
-                            <td>@(item.Product.Price * item.Quantity).ToString("C")</td>
+                            <td>@((item.Product.Price * item.Quantity).ToString("C"))</td>
                             <td>
                                 <a href="@Url.Action("Edit", "OrderProducts", new { id = item.OrderProductId })" class="btn btn-primary">Redigera</a>
                                 @using (Html.BeginForm("DeleteConfirmed", "OrderProducts", FormMethod.Post))
@@ -44,7 +44,7 @@
             </tbody>
         </table>
         <div class="total">
-            @* <h3>Total: @Model.Order.OrderProducts.Sum(item => item.Product.Price * item.Quantity).ToString("C")</h3> *@
+            <h3>Total: @(Model.Order.OrderProducts?.Sum(item => (item.Product?.Price ?? 0) * item.Quantity).ToString("C"))</h3> 
         </div>
 }
     else
