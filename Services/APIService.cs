@@ -1,8 +1,5 @@
 ﻿using IlQuadrifoglio.Models;
 using Newtonsoft.Json;
-using System.Net.Http.Headers;
-using System.Text.Json;
-using System.Threading.Tasks;
 
 
 namespace IlQuadrifoglio.Services
@@ -58,90 +55,6 @@ namespace IlQuadrifoglio.Services
             }
             return new List<string>();
         }
-
-        //private void AddJwtTokenToRequest()
-        //{
-        //    var token = _httpContextAccessor.HttpContext.Request.Cookies["jwtToken"];
-        //    if (!string.IsNullOrEmpty(token))
-        //    {
-        //        _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-        //    }
-        //}
-
-        ////Handle Login
-        //public async Task<bool> LoginAsync(string username, string password, bool rememberMe)
-        //{
-        //    var response = await _client.PostAsJsonAsync("api/account/login", new LoginModel { Username = username, Password = password, RememberMe = rememberMe });
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        var tokenResponse = await response.Content.ReadFromJsonAsync<TokenResponse>();
-        //        var token = tokenResponse?.Token;
-
-        //        if (!string.IsNullOrEmpty(token))
-        //        {
-        //            var cookieOptions = new CookieOptions
-        //            {
-        //                HttpOnly = true,
-        //                Expires = DateTime.Now.AddMinutes(30)
-        //            };
-        //            _httpContextAccessor.HttpContext.Response.Cookies.Append("jwtToken", token, cookieOptions);
-
-        //            return true;
-        //        }
-        //    }
-        //    return false;
-        //}
-
-        ////// Example method to call a protected API endpoint
-        ////public async Task<string> GetProtectedResourceAsync()
-        ////{
-        ////    AddJwtTokenToRequest();
-        ////    var response = await _client.GetAsync("api/protected/resource");
-        ////    if (response.IsSuccessStatusCode)
-        ////    {
-        ////        return await response.Content.ReadAsStringAsync();
-        ////    }
-        ////    return null;
-        ////}
-
-
-        ////Handle Register
-        //public async Task<bool> RegisterAsync(string username, string password, string confirmPassword, string email)
-        //{
-        //    var payload = new
-        //    {
-        //        email = email,
-        //        password = password,
-        //        confirmPassword = confirmPassword,
-        //        username = username
-        //    };
-
-        //    var response = await _client.PostAsJsonAsync("api/account/register", payload);
-        //    return response.IsSuccessStatusCode;
-        //}
-
-        ////Get all users
-        //public async Task<List<ApplicationUser>> GetUsersAsync()
-        //{
-        //    try
-        //    {
-        //        var response = await _client.GetAsync("api/applicationusers");
-        //        if (!response.IsSuccessStatusCode)
-        //        {
-        //            return new List<ApplicationUser>();
-        //        }
-        //        var jsonstring = await response.Content.ReadAsStringAsync();
-        //        var users = JsonConvert.DeserializeObject<List<ApplicationUser>>(jsonstring);
-        //        return users;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return new List<ApplicationUser>();
-        //    }
-        //}
-
-        ////Create a user
-        ////...
 
         private class TokenResponse
         {
@@ -302,13 +215,11 @@ namespace IlQuadrifoglio.Services
         ///////      OrderProducts       ////////
         //////////////////////////////////////////
 
-        //OrderProducts
-
         public async Task<List<OrderProduct>> GetOrderProductsAsync() //Get OrderProducts
         {
             try
             {
-                var response = await _client.GetAsync("api/orderProduct");
+                var response = await _client.GetAsync("api/orderProducts");
                 if (response.IsSuccessStatusCode)
                 {
                     var jsonString = await response.Content.ReadAsStringAsync();
@@ -327,7 +238,7 @@ namespace IlQuadrifoglio.Services
         {
             try
             {
-                var response = await _client.PostAsJsonAsync("api/orderProduct", orderProduct);
+                var response = await _client.PostAsJsonAsync("api/orderProducts", orderProduct);
                 return response.IsSuccessStatusCode;
             }
             catch (Exception ex)
@@ -398,6 +309,24 @@ namespace IlQuadrifoglio.Services
                 return new List<Order>();
             }
         }
+        public async Task<Order> GetLatestOrderAsync(string username)
+        {
+            try
+            {
+                var response = await _client.GetAsync($"api/orders/latest/{username}");
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    var order = JsonConvert.DeserializeObject<Order>(jsonString);
+                    return order;
+                }
+                return new Order();
+            }
+            catch (Exception ex)
+            {
+                return new Order();
+            }
+        }
 
         public async Task<bool> CreateOrderAsync(Order order)
         {
@@ -428,7 +357,7 @@ namespace IlQuadrifoglio.Services
         {
             try
             {
-                var response = await _client.PutAsJsonAsync($"api/order/{id}", order);
+                var response = await _client.PutAsJsonAsync($"api/orders/{id}", order);
                 return response.IsSuccessStatusCode;
             }
             catch (Exception ex)
@@ -440,7 +369,7 @@ namespace IlQuadrifoglio.Services
         {
             try
             {
-                var response = await _client.DeleteAsync($"api/order/{id}");
+                var response = await _client.DeleteAsync($"api/orders/{id}");
                 return response.IsSuccessStatusCode;
             }
             catch (Exception ex)

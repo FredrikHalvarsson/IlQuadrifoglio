@@ -1,10 +1,6 @@
 ﻿using IlQuadrifoglio.Models;
 using IlQuadrifoglio.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace IlQuadrifoglio.Controllers
 {
@@ -18,7 +14,6 @@ namespace IlQuadrifoglio.Controllers
         {
             _apiService = apiService;
             _httpContextAccessor = httpContextAccessor;
-
         }
 
         public async Task<IActionResult> Index()
@@ -63,9 +58,6 @@ namespace IlQuadrifoglio.Controllers
             }
             return View(order);
         }
-
-
-
 
         // GET: Orders/Edit/5
         [HttpGet]
@@ -118,7 +110,6 @@ namespace IlQuadrifoglio.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        
 
         // POST: Orders/DeleteOrderProduct/5
         [HttpPost]
