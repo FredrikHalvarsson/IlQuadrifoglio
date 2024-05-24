@@ -1,13 +1,8 @@
 ﻿using IlQuadrifoglio.Models;
 using IlQuadrifoglio.Services;
-using Microsoft.AspNetCore.Mvc;
 using IlQuadrifoglio.ViewModels;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace IlQuadrifoglio.Controllers
 {
@@ -27,11 +22,11 @@ namespace IlQuadrifoglio.Controllers
         public async Task<IActionResult> Index()
         {
             var userName = User.FindFirstValue(ClaimTypes.Name);
-            var orders = await _apiService.GetOrderAsync();
+            var order = await _apiService.GetLatestOrderAsync(userName);
             var model = new OrderViewModel
             {
                 UserName = userName,
-                Orders = orders ?? new List<Order>()
+                Order = order
             };
             //if (orders == null || !orders.Any())
             //{
