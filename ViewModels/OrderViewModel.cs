@@ -5,6 +5,6 @@ namespace IlQuadrifoglio.ViewModels
     public class OrderViewModel
     {
         public string UserName { get; set; }
-        public List<Order> Orders { get; set; }
+        public Order Order { get; set; }
     }
 }
