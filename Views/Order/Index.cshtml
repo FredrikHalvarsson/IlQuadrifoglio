@@ -10,7 +10,21 @@
                 <div class="card-body">
                     <h2>Dina varor</h2>
 
-                    @if (Model.Order != null)
+    @if (Model.Order != null)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Produktnamn</th>
+                    <th>Kvantitet</th>
+                    <th>Pris</th>
+                    <th>Summa</th>
+                    <th>Åtgärder</th>
+                </tr>
+            </thead>
+            <tbody>
+                 @if (Model.Order.OrderProducts != null && Model.Order.OrderProducts.Any()){
+                    @foreach (var item in Model.Order.OrderProducts)
                     {
                         <table class="table">
                             <thead>
@@ -84,12 +98,12 @@
     @using (Html.BeginForm("SaveOrder", "Order", FormMethod.Post))
     {
         <div class="row mt-5 mb-2">
-            <div class="col-12 text-center">
 
+    <div class="col-12 text-center">
 
-                <button type="submit" class="btn btn-three">Beställ</button>
-
-            </div>
+                <button type="submit">Beställ</button>
+        
+        </div>
         </div>
     }
 

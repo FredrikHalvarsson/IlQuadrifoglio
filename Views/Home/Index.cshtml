@@ -2,16 +2,18 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+<div class="container">
 
-<div class="position-relative overflow-hidden p-5 p-md-5 text-center imgContainer d-flex justify-content-center align-items-center" style="background-image: url('/Images/pexels-narda-yescas-724842-1566837.jpg');">
-    <div class="col-md-8 p-lg-5 mx-auto my-5 textContainer p-3">
+<div class="position-relative overflow-hidden imgContainer d-flex justify-content-center align-items-center" style="background-image: url('/Images/pexels-narda-yescas-724842-1566837.jpg');">
+        <div class="col-md-8 p-lg-5 mx-auto my-5 textContainer p-3 text-center">
         <h1>Unna dig en smakrik resa till Italien med våra autentiska pizzor</h1>
         <h5>Vi levererar härliga pizzor direkt till din dörr från en av våra tre restauranger</h5>
-        <a class="btn btn-success mt-2" asp-area="" asp-controller="Products" asp-action="CustomerMenu">Beställ nu!</a>
+        <a  class="btn" asp-area="" asp-controller="Products" asp-action="CustomerMenu">Beställ nu!</a>
     </div>
 </div>
 
-<div class="container">
+@* Snabbvy över menyn *@
+
     <div class="row">
         <div class="col-12 text-center mb-3 mt-3">
             <h2 class="featurette-heading">Vår mumsiga meny</h2>
@@ -41,43 +43,112 @@
             </div>
         </div>
     </div>
-
+    @* menyknapp *@
     <div class="row mb-5">
         <div class="col-12 text-center">
-            <a class="btn btn-success btn-md" asp-area="" asp-controller="Products" asp-action="CustomerMenu">Se hela menyn!</a>
+            
+                <a class="btn" asp-area="" asp-controller="Products" asp-action="CustomerMenu">Se hela menyn!</a>
+            
         </div>
     </div>
 
-    <div class="row mt-5">
-        <div class="col-12 text-center">
-            <div class="card">
-                <div class="card-body">
-                    <h2 class="card-title">Vår historia</h2>
-                    <p class="card-text">Vi är en familjeägd pizzeria som brinner för att leverera smakrika pizzor till våra kunder. Med färska ingredienser och passion för matlagning har vi serverat goda rätter i många år. Vår kärlek till mat och service genomsyrar allt vi gör.</p>
-                </div>
+    @* 
+--------------------------------
+    Historien om företaget 
+--------------------------------*@
+    <div class="row mt-5 mb-5 company-history">
+        <div class="col-md-6">
+            <img class="card-img-left card-img-responsive image-container" src="/Images/pexels-shvetsa-5953500.jpg" alt="Bild på nygräddad pizza">
+        </div>
+        <div class="col-md-6 d-flex align-items-center">
+            <div class="card-body m-3">
+                <h2 class="card-title">Vår historia</h2>
+                <p class="card-text">
+                    Vår resa började för många år sedan, när fyra entusiastiska syskon bestämde sig för att förverkliga sin dröm om att skapa något extraordinärt. Inspirerade av idén om fyrklövern - ett symboliskt tecken på lycka och framgång - grundade vi vårt familjeägda pizzeria med en enkel ambition: att sprida glädje och smakrika pizzor till våra kunder.
+                </p>
+                <p class="card-text">
+                    Med färska ingredienser och en passion för matlagning, har vi skapat läckerheter som har fört glädje till människors liv i många år. Varje pizza vi bakar är inte bara en måltid, utan en upplevelse av kärlek och omsorg som vi lägger ner i varje tugga.
+                </p>
+                <p class="card-text">
+                    Vårt fyrklöver av lycka sträcker sig över tre städer: Hudiksvall, Sundsvall och Örnsköldsvik. I varje stad har vi etablerat oss som en plats där gemenskapen samlas för att njuta av god mat och trevligt sällskap. Vår kärlek till mat och service genomsyrar allt vi gör, från den första varma hälsningen när du kliver in genom dörren, till den sista nöjda sucken när du lämnar oss.
+                </p>
+                <p class="card-text">
+                    Vi är stolta över vår historia och det vi har uppnått, men vi ser också fram emot framtiden med entusiasm och hängivenhet. För oss är varje dag en ny möjlighet att skapa smakrika minnen och sprida glädje till våra kunder. Välkommen till vår familj, där varje pizza är en smakrik berättelse och varje kund en älskad del av vår resa.
+                </p>
             </div>
         </div>
     </div>
 
-    <div class="row mt-5 mb-2">
-        <div class="col-12 text-center">
-            <div class="card">
-                <div class="card-body">
-                    <h2 class="card-title">Kontakta oss</h2>
-                    <h6 class="card-subtitle mb-2 text-muted">Har du frågor eller vill beställa? Vi ser fram emot att höra av dig!</h6>
-                    <p class="card-text">
-                        <ul class="list-unstyled">
-                            <li>1:a Exempelgatan, Exempelstad, Exempelland</li>
-                            <li>+1 234 567 8910</li>
-                            <li>order@ilquadifolio.com</li>
-                        </ul>
-                        <ul class="list-unstyled">
-                            <h4>Våra öppettider</h4>
-                            <li>Måndag-fredag: 8:00-18:00</li>
-                            <li>Lördag: 10:00-16:00</li>
-                            <li>Söndag: stängt</li>
-                        </ul>
-                    </p>
+   @*
+--------------------------------
+   kontakta och öppettider
+--------------------------------*@
+    <div class="row mt-5 mb-5">
+        <div class="col-12">
+            <div class="card border-0">
+                <div class="row">
+                    <div class="col-12 text-center mb-3 mt-3">
+                        <h2 class="featurette-heading">Kontakta oss</h2>
+                        <p class="text-muted">Har du frågor eller vill beställa? Vi ser fram emot att höra av dig!</p>
+                    </div>
+                </div>
+
+                <div class="row text-left">
+                    <div class="col-md-4">
+                        <div class="card flex-row mb-4 border-0">
+                            <div class="card-body m-3">
+                                <h3 class="text-uppercase city-color">Hudiksvall</h3>
+                                <ul class="list-unstyled">
+                                    <li>1:a Exempelgatan<br /> Exempelstad, Exempelland</li>
+                                    <li>+1 234 567 8910</li>
+                                    <li>order.hudiksvall@ilquadifolio.com</li>
+                                </ul>
+                                <h4>Våra öppettider</h4>
+                                <ul class="list-unstyled">
+                                    <li>Måndag-fredag: 8:00-18:00</li>
+                                    <li>Lördag: 10:00-16:00</li>
+                                    <li>Söndag: stängt</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card flex-row mb-4 border-0">
+                            <div class="card-body m-3">
+                                <h3 class="text-uppercase city-color">Sundsvall</h3>
+                                <ul class="list-unstyled">
+                                    <li>1:a Exempelgatan <br /> Exempelstad, Exempelland</li>
+                                    <li>+1 234 567 8910</li>
+                                    <li>order.sundsvall@ilquadifolio.com</li>
+                                </ul>
+                                <ul class="list-unstyled">
+                                    <h4>Våra öppettider</h4>
+                                    <li>Måndag-fredag: 8:00-18:00</li>
+                                    <li>Lördag: 10:00-16:00</li>
+                                    <li>Söndag: stängt</li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card flex-row mb-4 border-0">
+                            <div class="card-body m-3">
+                                <h3 class="text-uppercase city-color">Örnsköldsvik</h3>
+                                <ul class="list-unstyled">
+                                    <li>1:a Exempelgatan <br /> Exempelstad, Exempelland</li>
+                                    <li>+1 234 567 8910</li>
+                                    <li>order.ornskoldsvik@ilquadifolio.com</li>
+                                </ul>
+                                <ul class="list-unstyled">
+                                    <h4>Våra öppettider</h4>
+                                    <li>Måndag-fredag: 8:00-18:00</li>
+                                    <li>Lördag: 10:00-16:00</li>
+                                    <li>Söndag: stängt</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -87,7 +158,7 @@
         <div class="col-md-8 p-lg-5 mx-auto my-5 textContainer">
             <h1>Ny vecka - ny pizza!</h1>
             <h5 >Varje vecka uppdaterar vi vår pizzameny med en veckans special, kanske hittar du en ny favorit!</h5>
-            <a class="btn btn-success" asp-area="" asp-controller="Products" asp-action="CustomerMenu">Till menyn</a>
+            <a class="btn" asp-area="" asp-controller="Products" asp-action="CustomerMenu">Till menyn</a>
         </div>
     </div>
 </div>
