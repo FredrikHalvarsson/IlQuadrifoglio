@@ -1,0 +1,90 @@
+﻿@model IlQuadrifoglio.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "User Details";
+}
+
+<h1>User Details</h1>
+
+<div>
+    <h4>@Model.UserName</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <h4>Addresses</h4>
+    @if (Model.Addresses == null || !Model.Addresses.Any())
+    {
+        <p>No address registered</p>
+    }
+    else
+    {
+        <ul>
+            @foreach (var address in Model.Addresses)
+            {
+                <li>
+                    @address.Street, @address.City, @address.PostalCode
+                </li>
+            }
+        </ul>
+    }
+</div>
+
+<div>
+    <h4>Order History</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Order Date</th>
+                <th>Products</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Orders != null)
+            {
+                @foreach (var order in Model.Orders.Where(o => o.OrderProducts != null && o.OrderProducts.Any() && o.OrderStatus != IlQuadrifoglio.Models.Status.Unsent).OrderByDescending(o => o.OrderTime))
+                {
+                    <tr>
+                        <td>@order.OrderTime</td>
+                        <td>
+                            <ul>
+                                @foreach (var orderProduct in order.OrderProducts)
+                                {
+                                    <li>@orderProduct.Product.ProductName - Quantity: @orderProduct.Quantity</li>
+                                }
+                            </ul>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a> |
+    <form asp-action="DeleteConfirmed" asp-route-id="@Model.Id" method="post" style="display:inline;">
+        <input type="submit" value="Delete" class="btn btn-danger" />
+    </form>
+</div>
+    

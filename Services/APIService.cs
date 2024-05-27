@@ -44,6 +44,18 @@ namespace IlQuadrifoglio.Services
             return response.IsSuccessStatusCode;
         }
 
+        public async Task<ApplicationUser> GetUserAsync(string username)
+        {
+            var response = await _client.GetAsync($"api/account/getuser?username={username}");
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonString = await response.Content.ReadAsStringAsync();
+                var user = JsonConvert.DeserializeObject<ApplicationUser>(jsonString);
+                return user;
+            }
+            return null;
+        }
+
         public async Task<List<string>> GetUserRolesAsync(string username)
         {
             var response = await _client.GetAsync($"api/account/getroles?username={username}");

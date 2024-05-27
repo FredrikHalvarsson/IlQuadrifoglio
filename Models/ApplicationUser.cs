@@ -10,17 +10,17 @@ namespace IlQuadrifoglio.Models
     {
 
         [StringLength(50, ErrorMessage = "Name can't be longer than 50 characters")]
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonIgnore]
         public string? FirstName { get; set; }
 
         [StringLength(50, ErrorMessage = "Name can't be longer than 50 characters")]
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonIgnore]
         public string? LastName { get; set; }
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        //[JsonIgnore]
         public virtual ICollection<Address>? Addresses { get; set; }
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        //[JsonIgnore]
         public List<Order>? Orders { get; set; }
 
         public ApplicationUser()
