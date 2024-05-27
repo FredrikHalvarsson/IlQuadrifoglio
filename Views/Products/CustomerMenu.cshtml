@@ -41,7 +41,7 @@
     {
         @foreach (var product in Model.Where(p => p.ProductType == IlQuadrifoglio.Models.Type.Pizza))
         {
-            <div class="container m-3">
+            <div class="container m-3 row">
                 <div class="card mb-4 box-shadow">
                     <div class="card-body">
                         <h5 class="card-title">@product.ProductName <span class="text-end"> - @product.Price kr</span></h5>
@@ -58,7 +58,7 @@
                         {
                             <form id="add-to-cart-form" asp-action="Create" asp-controller="OrderProducts" asp-route-id="@product.ProductId" method="post" class="d-inline">
                                 <input type="hidden" name="productId" value="@product.ProductId" />
-                                <input type="hidden" name="quantity" value="1" />
+                                <input type="number" id="quantity" name="quantity" min="1" max="100" step="1" value="1" />
                                 <button type="submit" class="btn btn-outline-primary" data-toggle="tooltip" title="Lägg till i varukorgen">
                                     <i class="bi bi-cart-plus"></i>
                                 </button>

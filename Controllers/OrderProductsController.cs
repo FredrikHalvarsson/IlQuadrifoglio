@@ -77,7 +77,7 @@ namespace IlQuadrifoglio.Controllers
             if (ModelState.IsValid)
             {
                 await _apiService.UpdateOrderProductAsync(id, orderProduct);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Order");
             }
             return View(orderProduct);
         }
@@ -93,7 +93,7 @@ namespace IlQuadrifoglio.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await _apiService.DeleteOrderProductAsync(id);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Order");
         }
     }
 }
