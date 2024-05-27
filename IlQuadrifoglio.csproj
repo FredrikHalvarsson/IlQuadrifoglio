@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\**" />
+    <Content Remove="Migrations\**" />
+    <EmbeddedResource Remove="Migrations\**" />
+    <None Remove="Migrations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\Images\pexels-kampus-6605214.jpg" />
     <None Include="wwwroot\Images\pexels-narda-yescas-724842-1566837.jpg" />
   </ItemGroup>

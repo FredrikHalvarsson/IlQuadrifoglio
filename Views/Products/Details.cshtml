@@ -20,7 +20,7 @@
                 </div>
                 <div class="card-footer">
                     <a asp-action="Edit" asp-route-id="@Model.ProductId" class="btn btn-outline-primary" data-toggle="tooltip" title="Redigera"><i class="bi bi-pencil"></i></a>
-                    <a asp-action="AdminMenu" class="btn btn-secondary">Tillbaka till menyn</a>
+                    <a asp-action="CustomerMenu" class="btn btn-secondary">Tillbaka till menyn</a>
                     <form asp-action="Delete" asp-route-id="@Model.ProductId" method="post" class="d-inline" onsubmit="return confirm('Är du säker på att du vill radera @Model.ProductName?')">
                         <button type="submit" class="btn btn-outline-danger" data-toggle="tooltip" title="Radera"><i class="bi bi-trash"></i></button>
                     </form>
