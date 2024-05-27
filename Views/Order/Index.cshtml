@@ -16,9 +16,9 @@
                             <thead>
                                 <tr>
                                     <th>Produktnamn</th>
-                                    <th>Pris</th>
                                     <th>Kvantitet</th>
-                                    <th>Summa</th>
+                                    <th>á-pris</th>
+                                    @* <th>Summa</th> *@
                                     <th>Åtgärder</th>
                                 </tr>
                             </thead>
@@ -38,7 +38,7 @@
                                                 </form>
                                             </td>
                                             <td>@item.Product.Price.ToString("C")</td>
-                                            <td>@((item.Product.Price * item.Quantity).ToString("C"))</td>
+                                            @* <td>@((item.Product.Price * item.Quantity).ToString("C"))</td> *@
                                             <td>
                                                 <form asp-action="DeleteConfirmed" asp-route-id="@item.OrderProductId" asp-controller="OrderProducts" method="post" class="d-inline" onsubmit="return confirm('Är du säker på att du vill radera @item.Product.ProductName från varukorgen?')">
                                                     <button type="submit" class="btn btn-outline-danger" data-toggle="tooltip" title="Radera"><i class="bi bi-trash"></i></button>
