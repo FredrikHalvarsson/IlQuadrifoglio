@@ -21,7 +21,6 @@ namespace IlQuadrifoglio
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
 
-            builder.Services.AddControllersWithViews();
 
             builder.Services.AddHttpClient("API Client", client =>
             {
@@ -30,6 +29,7 @@ namespace IlQuadrifoglio
             });
 
             builder.Services.AddScoped<APIService>();
+            builder.Services.AddScoped<UserService>();
 
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
@@ -39,6 +39,7 @@ namespace IlQuadrifoglio
                 });
 
             builder.Services.AddHttpContextAccessor();
+            builder.Services.AddControllersWithViews();
 
 
             builder.Services.AddTransient<LocationService>();
