@@ -1,0 +1,84 @@
+﻿@model IlQuadrifoglio.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "Edit User";
+}
+
+<h1>Edit User</h1>
+
+<h4>@Model.UserName</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <h4>Addresses</h4>
+    <ul>
+        @if (Model.Addresses != null)
+        {
+            @foreach (var address in Model.Addresses)
+            {
+                <li>
+                    @address.Street, @address.City, @address.PostalCode
+                </li>
+            }
+        }
+        else
+        {
+            <p>No address registered</p>
+        }
+    </ul>
+</div>
+
+<div>
+    <h4>Order History</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Order Date</th>
+                <th>Products</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Orders != null)
+            {
+                @foreach (var order in Model.Orders.Where(o => o.OrderProducts != null && o.OrderProducts.Any() && o.OrderStatus != IlQuadrifoglio.Models.Status.Unsent).OrderByDescending(o => o.OrderTime))
+                {
+                    <tr>
+                        <td>@order.OrderTime</td>
+                        <td>
+                            <ul>
+                                @foreach (var orderProduct in order.OrderProducts)
+                                {
+                                    <li>@orderProduct.Product.ProductName - Quantity: @orderProduct.Quantity</li>
+                                }
+                            </ul>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
