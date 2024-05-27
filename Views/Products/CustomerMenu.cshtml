@@ -3,13 +3,6 @@
 @{
     ViewData["Title"] = "Pizza Menu";
 }
-@* @if (TempData["SuccessMessage"] != null)
-{
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        @TempData["SuccessMessage"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-} *@
 
 <div class="container-fluid p-0">
     <div class="row">
@@ -36,6 +29,13 @@
         </div>
     </div>
     <br />
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
     <h1>Pizza</h1>
     @if (Model.Any(p => p.ProductType == IlQuadrifoglio.Models.Type.Pizza))
     {
