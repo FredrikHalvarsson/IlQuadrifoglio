@@ -52,12 +52,15 @@ namespace IlQuadrifoglio.Controllers
 
                 var createOrderProductSuccess = await _apiService.CreateOrderProductAsync(orderProduct);
 
+
                 if (!createOrderProductSuccess)
                 {
                     ModelState.AddModelError("", "Failed to add the product to the order. Please try again.");
+                    TempData["SuccessMessage"] = "Kunde inte lägga till i varukorgen";
                     return RedirectToAction("CustomerMenu", "Products");
                 }
 
+                TempData["SuccessMessage"] = "Varan är tillagd i varukorgen!";
                 return RedirectToAction("CustomerMenu", "Products"); //om det fungerar
             }
             return RedirectToAction("Index", "Home"); //fungerar inte
