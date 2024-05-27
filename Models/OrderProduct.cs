@@ -18,10 +18,10 @@ namespace IlQuadrifoglio.Models
 
         [ForeignKey("Product")]
         public int FkProductId { get; set; }
-        [JsonIgnore]
+        //[JsonIgnore]
         public Product? Product { get; set; }
 
-        [JsonIgnore]
+        //[JsonIgnore]
         public IEnumerable<Ingredient>? Ingredients { get; set; }
     }
 }
