@@ -31,13 +31,17 @@ namespace IlQuadrifoglio.Controllers
                 var result = await _apiService.LoginAsync(model.Username, model.Password, model.RememberMe);
                 if (result)
                 {
+                    // Fetch user details including user ID from the API
+                    var user = await _apiService.GetUserAsync(model.Username);
+
                     // Fetch user roles from the API
                     var roles = await _apiService.GetUserRolesAsync(model.Username);
 
                     // Manually sign in the user
                     var claims = new List<Claim>
                     {
-                        new Claim(ClaimTypes.Name, model.Username)
+                        new Claim(ClaimTypes.Name, model.Username),
+                        new Claim(ClaimTypes.NameIdentifier, user.Id)
                     };
                     foreach (var role in roles)
                     {

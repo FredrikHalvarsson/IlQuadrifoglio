@@ -29,38 +29,34 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav me-auto flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="CustomerMenu">Meny</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="CustomerMenu"><h3>Meny</h3></a>
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item d-flex align-items-center">
-                            <svg class="user-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><title></title><g id="User"><path d="M21,30H11a5,5,0,0,1-5-5V24a9,9,0,0,1,9-9h2a9,9,0,0,1,9,9v1A5,5,0,0,1,21,30ZM15,17a7,7,0,0,0-7,7v1a3,3,0,0,0,3,3H21a3,3,0,0,0,3-3V24a7,7,0,0,0-7-7Z"></path><path d="M16,14a6,6,0,1,1,6-6A6,6,0,0,1,16,14ZM16,4a4,4,0,1,0,4,4A4,4,0,0,0,16,4Z"></path></g></svg>
-                            <partial name="_LoginPartial" />
-                        </li>
-                        <li class="nav-item d-flex align-items-center">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="Index">
                             <svg class="cart-icon" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 101 101" style="enable-background:new 0 0 101 101;" xml:space="preserve" width="24" height="24">
-                            <g>
-                            <path d="M96.5,60H93c-0.5-19.1-15-34.8-33.6-37.2c1-1.1,1.7-2.7,1.7-4.3c0-3.6-2.9-6.5-6.5-6.5S48,14.9,48,18.5
-                        c0,1.7,0.6,3.2,1.7,4.3C31,25.2,16.5,40.9,16,60h-4.5c-0.8,0-1.5,0.7-1.5,1.5s0.7,1.5,1.5,1.5h13.8c-0.2,0.2-0.4,0.4-0.7,0.6
-                        c-3.5,3.5-4.6,8.2-2.7,11.4H4.5C3.7,75,3,75.7,3,76.5S3.7,78,4.5,78h22c0.1,0,0.1,0,0.2,0c0.3,0,0.5,0,0.8,0c2.6,0,5.5-1.3,7.9-3.6
-                        c3.5-3.5,4.6-8.2,2.7-11.4h38.2c-0.2,0.2-0.4,0.4-0.7,0.6c-3.5,3.5-4.6,8.3-2.7,11.4H61.5c-0.8,0-1.5,0.7-1.5,1.5s0.7,1.5,1.5,1.5
-                        h16c0.1,0,0.1,0,0.2,0c0.3,0,0.5,0,0.8,0c2.6,0,5.5-1.3,7.9-3.6c3.5-3.5,4.6-8.3,2.7-11.4h7.4c0.8,0,1.5-0.7,1.5-1.5
-                        S97.3,60,96.5,60z M54.5,15c1.9,0,3.5,1.6,3.5,3.5S56.4,22,54.5,22S51,20.4,51,18.5S52.6,15,54.5,15z M35.1,63.9
-                        c1.8,1.8,0.9,5.6-1.8,8.3c-2.7,2.7-6.6,3.6-8.3,1.8c-1.8-1.8-0.9-5.6,1.8-8.3c1.8-1.8,4-2.7,5.8-2.7C33.5,63,34.4,63.3,35.1,63.9z
-                         M33,60c-0.3,0-0.7,0-1,0H19c0.5-19.1,16.2-34.5,35.5-34.5C73.7,25.5,89.4,40.9,90,60h-6c-0.3,0-0.7,0-1,0H33z M86.1,63.9
-                        c1.8,1.8,0.9,5.6-1.8,8.3c-2.7,2.7-6.6,3.6-8.3,1.8c-1.8-1.8-0.9-5.6,1.8-8.3c1.8-1.8,4-2.7,5.8-2.7C84.5,63,85.4,63.3,86.1,63.9z"></path>
-                            <path d="M46.4,32.6c-8.3,2.4-15.2,8.3-18.8,16.2c-0.3,0.8,0,1.6,0.7,2c0.2,0.1,0.4,0.1,0.6,0.1c0.6,0,1.1-0.3,1.4-0.9
-                        c3.2-7.1,9.4-12.4,16.9-14.5c0.8-0.2,1.3-1.1,1-1.9C48.1,32.9,47.2,32.4,46.4,32.6z"></path>
-                            <path d="M65.5,87h-40c-0.8,0-1.5,0.7-1.5,1.5s0.7,1.5,1.5,1.5h40c0.8,0,1.5-0.7,1.5-1.5S66.3,87,65.5,87z"></path>
-                </g>
-            </svg>
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="Index">Kassa</a>
+                                <g>
+                                    <path d="M96.5,60H93c-0.5-19.1-15-34.8-33.6-37.2c1-1.1,1.7-2.7,1.7-4.3c0-3.6-2.9-6.5-6.5-6.5S48,14.9,48,18.5
+                                c0,1.7,0.6,3.2,1.7,4.3C31,25.2,16.5,40.9,16,60h-4.5c-0.8,0-1.5,0.7-1.5,1.5s0.7,1.5,1.5,1.5h13.8c-0.2,0.2-0.4,0.4-0.7,0.6
+                                c-3.5,3.5-4.6,8.2-2.7,11.4H4.5C3.7,75,3,75.7,3,76.5S3.7,78,4.5,78h22c0.1,0,0.1,0,0.2,0c0.3,0,0.5,0,0.8,0c2.6,0,5.5-1.3,7.9-3.6
+                                c3.5-3.5,4.6-8.2,2.7-11.4h38.2c-0.2,0.2-0.4,0.4-0.7,0.6c-3.5,3.5-4.6,8.3-2.7,11.4H61.5c-0.8,0-1.5,0.7-1.5,1.5s0.7,1.5,1.5,1.5
+                                h16c0.1,0,0.1,0,0.2,0c0.3,0,0.5,0,0.8,0c2.6,0,5.5-1.3,7.9-3.6c3.5-3.5,4.6-8.3,2.7-11.4h7.4c0.8,0,1.5-0.7,1.5-1.5
+                                S97.3,60,96.5,60z M54.5,15c1.9,0,3.5,1.6,3.5,3.5S56.4,22,54.5,22S51,20.4,51,18.5S52.6,15,54.5,15z M35.1,63.9
+                                c1.8,1.8,0.9,5.6-1.8,8.3c-2.7,2.7-6.6,3.6-8.3,1.8c-1.8-1.8-0.9-5.6,1.8-8.3c1.8-1.8,4-2.7,5.8-2.7C33.5,63,34.4,63.3,35.1,63.9z
+                                 M33,60c-0.3,0-0.7,0-1,0H19c0.5-19.1,16.2-34.5,35.5-34.5C73.7,25.5,89.4,40.9,90,60h-6c-0.3,0-0.7,0-1,0H33z M86.1,63.9
+                                c1.8,1.8,0.9,5.6-1.8,8.3c-2.7,2.7-6.6,3.6-8.3,1.8c-1.8-1.8-0.9-5.6,1.8-8.3c1.8-1.8,4-2.7,5.8-2.7C84.5,63,85.4,63.3,86.1,63.9z"></path>
+                                    <path d="M46.4,32.6c-8.3,2.4-15.2,8.3-18.8,16.2c-0.3,0.8,0,1.6,0.7,2c0.2,0.1,0.4,0.1,0.6,0.1c0.6,0,1.1-0.3,1.4-0.9
+                                c3.2-7.1,9.4-12.4,16.9-14.5c0.8-0.2,1.3-1.1,1-1.9C48.1,32.9,47.2,32.4,46.4,32.6z"></path>
+                                    <path d="M65.5,87h-40c-0.8,0-1.5,0.7-1.5,1.5s0.7,1.5,1.5,1.5h40c0.8,0,1.5-0.7,1.5-1.5S66.3,87,65.5,87z"></path>
+                                </g>
+                            </svg>
+                                Kassa
+                                </a>
+                        </li>
+                        <li >
+                            @* <svg class="user-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><title></title><g id="User"><path d="M21,30H11a5,5,0,0,1-5-5V24a9,9,0,0,1,9-9h2a9,9,0,0,1,9,9v1A5,5,0,0,1,21,30ZM15,17a7,7,0,0,0-7,7v1a3,3,0,0,0,3,3H21a3,3,0,0,0,3-3V24a7,7,0,0,0-7-7Z"></path><path d="M16,14a6,6,0,1,1,6-6A6,6,0,0,1,16,14ZM16,4a4,4,0,1,0,4,4A4,4,0,0,0,16,4Z"></path></g></svg> *@
+                            <partial name="_LoginPartial" />
                         </li>
                     </ul>
                 </div>
@@ -76,12 +72,12 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - IlQuadrifoglio - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2024 - IlQuadrifoglio - <a asp-area="" asp-controller="Home" asp-action="Privacy">Integritetspolicy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    @* @await RenderSectionAsync("Scripts", required: false) *@
 </body>
 </html>
