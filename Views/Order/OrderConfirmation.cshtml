@@ -1,0 +1,39 @@
+﻿ @model IlQuadrifoglio.ViewModels.OrderViewModel
+
+<body class="body-order">
+    <div class="row mt-5 mb-2">
+        <div class="col-12 text-center">
+
+            <div class="card">
+                <div class="card-body">
+
+                    @if (Model.Order != null)
+                    {
+
+                        <div class="card-title"><h1>Orderbekräftelse</h1></div>
+                        <h3 class="m-2">Varor</h3>
+                        @if (Model.Order.OrderProducts != null && Model.Order.OrderProducts.Any())
+                        {
+                            @foreach (var item in Model.Order.OrderProducts)
+                            {
+                                <div class="border-bottom">
+                                    <p>@item.Quantity x @item.Product.ProductName <span class="text-end"><p>@((item.Product.Price * item.Quantity).ToString("C"))</p></span></p>
+                                </div>
+                            }}
+                        <div>
+                            <h3 class="m-2">Övrig information</h3>
+                            <p>Status: <span class="text-end">@Model.Order.OrderStatus</span></p>
+                            <p>Tid för beställning: <span class="text-end">@Model.Order.OrderTime</span></p>
+                            <p>Estimerad leverans: <span class="text-end">@Model.Order.EstimatedDelivery</span></p>
+                            <p>Totalpris: @(Model.Order.OrderProducts?.Sum(item => (item.Product?.Price ?? 0) * item.Quantity).ToString("C"))</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <p>Ingen order hittades.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

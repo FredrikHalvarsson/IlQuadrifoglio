@@ -51,6 +51,7 @@
                         <div class="total">
                             <h3>Total: @(Model.Order.OrderProducts?.Sum(item => (item.Product?.Price ?? 0) * item.Quantity).ToString("C"))</h3>
                         </div>
+                        
                     }
                     else
                     {
@@ -61,6 +62,7 @@
         </div>
     </div>
 
+    
 
     <div class="row mt-5 mb-2">
         <div class="col-12 text-center">
@@ -79,9 +81,12 @@
             </div>
         </div>
     </div>
-    </div>
+   @*  </div> *@
 
-    @using (Html.BeginForm("SaveOrder", "Order", FormMethod.Post))
+   
+
+
+   @*  @using (Html.BeginForm("SaveOrder", "Order", FormMethod.Post))
     {
         <div class="row mt-5 mb-2">
             <div class="col-12 text-center">
@@ -91,6 +96,10 @@
 
             </div>
         </div>
-    }
-
+    } *@
+    <form asp-action="SendOrder" asp-controller="Order" asp-route-id="@Model.Order.OrderId" method="post" class="d-inline">
+        <input type="hidden" name="OrderId" value="@Model.Order.OrderId" />
+        <input type="hidden" name="UserId" value="@Model.Order.FkCustomerId" />
+        <button type="submit" class="btn btn-three">Beställ</button>
+    </form>
 </body>

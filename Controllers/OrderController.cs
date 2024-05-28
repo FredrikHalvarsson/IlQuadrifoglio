@@ -36,6 +36,40 @@ namespace IlQuadrifoglio.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> OrderConfirmation(int orderId)
+        {
+            var userName = User.FindFirstValue(ClaimTypes.Name);
+            var order = await _apiService.GetOrderByIdAsync(orderId);
+            var model = new OrderViewModel
+            {
+                UserName = userName,
+                Order = order
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SendOrder(int id, string userId)
+        {
+            // Hämta ordern från API:et med OrderId
+            var order = await _apiService.GetOrderByIdAsync(id);
+
+            // Sätt NewOrderDate till DateTime.Now
+            order.OrderTime = DateTime.Now;
+            order.OrderStatus = Status.Pending;
+
+
+            // Anropa API:et för att uppdatera ordern med den uppdaterade NewOrderDate
+            await _apiService.UpdateOrderAsync(id, order);
+
+            var newOrder = new Order
+            {
+                FkCustomerId = userId
+            };
+            await _apiService.CreateOrderAsync(newOrder);
+            return RedirectToAction(nameof(OrderConfirmation), new { orderId = order.OrderId });
+        }
         // Get: Orders/Create
         public IActionResult Create()
         {

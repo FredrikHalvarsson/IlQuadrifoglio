@@ -24,11 +24,11 @@ namespace IlQuadrifoglio.Models
         public DateTime EstimatedDelivery => OrderTime.AddMinutes(40);
 
         [ForeignKey("Customer")]
-        public string FkCustomerId { get; set; }
+        public string FkCustomerId { get; set; } = string.Empty;
         [JsonIgnore]
         public ApplicationUser? Customer { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public List<OrderProduct>? OrderProducts { get; set; }
+        public List<OrderProduct>? OrderProducts { get; set; } = new List<OrderProduct>();
     }
 }
