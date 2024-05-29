@@ -2,7 +2,6 @@ name: Build and deploy .NET Core application to Web App IlQuadrifoglio
 on:
   push:
     branches:
-    - master
 env:
   AZURE_WEBAPP_NAME: IlQuadrifoglio
   AZURE_WEBAPP_PACKAGE_PATH: .\published
