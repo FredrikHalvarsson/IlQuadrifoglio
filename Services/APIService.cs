@@ -340,6 +340,27 @@ namespace IlQuadrifoglio.Services
             }
         }
 
+        public async Task<List<Order>> GetUsersOrdersAsync(string username)
+        {
+            try
+            {
+                var response = await _client.GetAsync($"api/orders/all/{username}");
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    var orders = JsonConvert.DeserializeObject<List<Order>>(jsonString);
+                    return orders ?? new List<Order>(); // Returnerar en tom lista om deserialisering misslyckas
+                }
+                return new List<Order>(); // Returnerar en tom lista om API-anropet misslyckas
+            }
+            catch (Exception ex)
+            {
+                // Hantera eventuella undantag och logga dem om nödvändigt
+                return new List<Order>(); // Returnerar en tom lista vid undantag
+            }
+        }
+
+
         public async Task<bool> CreateOrderAsync(Order order)
         {
             try

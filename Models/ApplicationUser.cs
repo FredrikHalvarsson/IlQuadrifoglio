@@ -1,18 +1,17 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Net;
 using System.Text.Json.Serialization;
 
 namespace IlQuadrifoglio.Models
 {
     public class ApplicationUser : IdentityUser
     {
-
+        [Display(Name = "Förnamn")]
         [StringLength(50, ErrorMessage = "Name can't be longer than 50 characters")]
         [JsonIgnore]
         public string? FirstName { get; set; }
 
+        [Display(Name = "Efternamn")]
         [StringLength(50, ErrorMessage = "Name can't be longer than 50 characters")]
         [JsonIgnore]
         public string? LastName { get; set; }

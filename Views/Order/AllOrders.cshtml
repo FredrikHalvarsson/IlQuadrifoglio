@@ -1,0 +1,162 @@
+﻿@model IEnumerable<IlQuadrifoglio.Models.Order>
+@using IlQuadrifoglio.Models
+<div class="container">
+    <div class="row mt-5 mb-2">
+        <div class="col-12">
+            <div class="text-center"><h1>Alla ordrar</h1></div>
+
+            @if (Model != null)
+            {
+                <div class="container my-4 mb-3">
+                    <h3>Inkommande ordrar</h3>
+                    @if (Model.Any(o => o.OrderStatus == Status.Mottagen)){
+                    @foreach (var order in Model.Where(o => o.OrderProducts != null && o.OrderProducts.Any() && o.OrderStatus == Status.Mottagen).OrderByDescending(o => o.OrderTime))
+                    {
+                        <div class="card border-bottom box-shadow m-1">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="mb-2">
+                                            <h6>Orderdatum:</h6>
+                                            <p>@order.OrderTime</p>
+                                        </div>
+                                        <div class="mb-2">
+                                            <h6>Totalpris:</h6>
+                                            <p>@(order.OrderProducts?.Sum(item => (item.Product?.Price ?? 0) * item.Quantity).ToString("C"))</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6>Produkter:</h6>
+                                        <ul>
+                                            @foreach (var orderProduct in order.OrderProducts)
+                                            {
+                                                <li>@orderProduct.Quantity x @orderProduct.Product.ProductName</li>
+                                            }
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-2">
+                                            <h6>Kund-ID:</h6>
+                                            <p>@order.FkCustomerId</p>
+                                        </div>
+                                        <div class="mb-2">
+                                            <form asp-action="Edit" asp-controller="Order" asp-route-id="@order.OrderId" method="post" class="w-100">
+                                                <div class="form-group">
+                                                    <label for="orderStatus"><h6>Ändra status</h6></label>
+                                                    <select id="orderStatus" asp-for="@order.OrderStatus" class="form-control" asp-items="Html.GetEnumSelectList<Status>()" onchange="this.form.submit()"></select>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }}
+                    else{
+                        <h6>Det finns inga inkommande ordrar</h6>
+                    }
+                </div>
+                <div class="container my-4 mb-3">
+                    <h3>Pågående ordrar</h3>
+                    @if (Model.Any(o => o.OrderStatus == Status.Tillagas || o.OrderStatus==IlQuadrifoglio.Models.Status.Levereras))
+                    {
+                    @foreach (var order in Model.Where(o => o.OrderProducts != null && o.OrderProducts.Any() && o.OrderStatus == IlQuadrifoglio.Models.Status.Tillagas || o.OrderStatus == IlQuadrifoglio.Models.Status.Levereras).OrderByDescending(o => o.OrderTime))
+                    {
+                        <div class="card border-bottom box-shadow m-1">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="mb-2">
+                                            <h6>Orderdatum:</h6>
+                                            <p>@order.OrderTime</p>
+                                        </div>
+                                        <div class="mb-2">
+                                            <h6>Totalpris:</h6>
+                                            <p>@(order.OrderProducts?.Sum(item => (item.Product?.Price ?? 0) * item.Quantity).ToString("C"))</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6>Produkter:</h6>
+                                        <ul>
+                                            @foreach (var orderProduct in order.OrderProducts)
+                                            {
+                                                <li>@orderProduct.Quantity x @orderProduct.Product.ProductName</li>
+                                            }
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-2">
+                                            <h6>Kund-ID:</h6>
+                                            <p>@order.FkCustomerId</p>
+                                        </div>
+                                        <div class="mb-2">
+                                            <form asp-action="Edit" asp-controller="Order" asp-route-id="@order.OrderId" method="post" class="w-100">
+                                                <div class="form-group">
+                                                    <label for="orderStatus"><h6>Ändra status</h6></label>
+                                                        <select id="orderStatus" asp-for="@order.OrderStatus" class="form-control" asp-items="Html.GetEnumSelectList<Status>()" onchange="this.form.submit()"></select>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }}
+                    else{
+                        <h6>Det finns inga pågående ordrar</h6>
+                    }
+                </div>
+                <div class="container my-4 mb-3">
+                    <h3>Levererade ordrar</h3>
+                    @if (Model.Any(o => o.OrderStatus == Status.Levererad))
+                    {
+                    @foreach (var order in Model.Where(o => o.OrderProducts != null && o.OrderProducts.Any() && o.OrderStatus == IlQuadrifoglio.Models.Status.Levererad).OrderByDescending(o => o.OrderTime))
+                    {
+                        <div class="card border-bottom box-shadow m-1">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="mb-2">
+                                            <h6>Orderdatum:</h6>
+                                            <p>@order.OrderTime</p>
+                                        </div>
+                                        <div class="mb-2">
+                                            <h6>Totalpris:</h6>
+                                            <p>@(order.OrderProducts?.Sum(item => (item.Product?.Price ?? 0) * item.Quantity).ToString("C"))</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6>Produkter:</h6>
+                                        <ul>
+                                            @foreach (var orderProduct in order.OrderProducts)
+                                            {
+                                                <li>@orderProduct.Quantity x @orderProduct.Product.ProductName</li>
+                                            }
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-2">
+                                            <h6>Kund-ID:</h6>
+                                            <p>@order.FkCustomerId</p>
+                                        </div>
+                                        <div class="mb-2">
+                                            <h6>Orderstatus:</h6>
+                                            <p>@order.OrderStatus</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }}
+                    else{
+                        <h6>Det finns inga levererade ordrar</h6>
+                    }
+                </div>
+            }
+            else
+            {
+                <p>Det finns inga ordrar att visa</p>
+            }
+        </div>
+    </div>
+</div>

@@ -18,7 +18,6 @@
                                     <th>Produktnamn</th>
                                     <th>Kvantitet</th>
                                     <th>á-pris</th>
-                                    @* <th>Summa</th> *@
                                     <th>Åtgärder</th>
                                 </tr>
                             </thead>
@@ -38,7 +37,6 @@
                                                 </form>
                                             </td>
                                             <td>@item.Product.Price.ToString("C")</td>
-                                            @* <td>@((item.Product.Price * item.Quantity).ToString("C"))</td> *@
                                             <td>
                                                 <form asp-action="DeleteConfirmed" asp-route-id="@item.OrderProductId" asp-controller="OrderProducts" method="post" class="d-inline" onsubmit="return confirm('Är du säker på att du vill radera @item.Product.ProductName från varukorgen?')">
                                                     <button type="submit" class="btn btn-outline-danger" data-toggle="tooltip" title="Radera"><i class="bi bi-trash"></i></button>
@@ -50,8 +48,7 @@
                         </table>
                         <div class="total">
                             <h3>Total: @(Model.Order.OrderProducts?.Sum(item => (item.Product?.Price ?? 0) * item.Quantity).ToString("C"))</h3>
-                        </div>
-                        
+                        </div> 
                     }
                     else
                     {
@@ -61,8 +58,6 @@
             </div>
         </div>
     </div>
-
-    
 
     <div class="row mt-5 mb-2">
         <div class="col-12 text-center">
@@ -81,25 +76,12 @@
             </div>
         </div>
     </div>
-   @*  </div> *@
-
    
-
-
-   @*  @using (Html.BeginForm("SaveOrder", "Order", FormMethod.Post))
-    {
-        <div class="row mt-5 mb-2">
-            <div class="col-12 text-center">
-
-
-                <button type="submit" class="btn btn-three">Beställ</button>
-
-            </div>
-        </div>
-    } *@
+    <div class="mt-5 mb-5">
     <form asp-action="SendOrder" asp-controller="Order" asp-route-id="@Model.Order.OrderId" method="post" class="d-inline">
         <input type="hidden" name="OrderId" value="@Model.Order.OrderId" />
         <input type="hidden" name="UserId" value="@Model.Order.FkCustomerId" />
-        <button type="submit" class="btn btn-three">Beställ</button>
+        <button type="submit" class="btn btn-three mb-5">Beställ</button>
     </form>
+    </div>
 </body>
