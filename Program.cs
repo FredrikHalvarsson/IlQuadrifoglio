@@ -12,19 +12,10 @@ namespace IlQuadrifoglio
 
 
             // Add services to the container.
-            //var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            //builder.Services.AddDbContext<ApplicationDbContext>(options =>
-            //options.UseSqlServer(connectionString));
-            //builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-            //builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-            //    .AddEntityFrameworkStores<ApplicationDbContext>();
-
-
-
+            var apiClientBaseAddress = builder.Configuration["ApiClientBaseAddress"];
             builder.Services.AddHttpClient("API Client", client =>
             {
-                client.BaseAddress = new Uri("https://localhost:7223/");
+                client.BaseAddress = new Uri(apiClientBaseAddress);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             });
 

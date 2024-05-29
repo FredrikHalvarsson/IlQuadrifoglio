@@ -14,7 +14,7 @@ function sendLocationToServer(position) {
 
     // Send location data to the server using AJAX
     $.ajax({
-        url: 'https://localhost:7223/api/location/update', // Update this with your server endpoint
+        url: 'https://ilquadrifogliodb.database.windows.net/api/location/update', // Update this with your server endpoint
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({ latitude: latitude, longitude: longitude }),
