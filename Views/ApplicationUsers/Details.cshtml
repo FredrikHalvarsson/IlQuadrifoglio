@@ -4,7 +4,7 @@
     ViewData["Title"] = "User Details";
 }
 
-<h1>User Details</h1>
+<h1>Mina sidor</h1>
 
 <div>
     <h4>@Model.UserName</h4>
@@ -32,10 +32,10 @@
 </div>
 
 <div>
-    <h4>Addresses</h4>
+    <h4>Addresser</h4>
     @if (Model.Addresses == null || !Model.Addresses.Any())
     {
-        <p>No address registered</p>
+        <p>Du har inga registrerade adresser</p>
     }
     else
     {
@@ -50,41 +50,22 @@
     }
 </div>
 
-<div>
-    <h4>Order History</h4>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Order Date</th>
-                <th>Products</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (Model.Orders != null)
-            {
-                @foreach (var order in Model.Orders.Where(o => o.OrderProducts != null && o.OrderProducts.Any() && o.OrderStatus != IlQuadrifoglio.Models.Status.Unsent).OrderByDescending(o => o.OrderTime))
-                {
-                    <tr>
-                        <td>@order.OrderTime</td>
-                        <td>
-                            <ul>
-                                @foreach (var orderProduct in order.OrderProducts)
-                                {
-                                    <li>@orderProduct.Product.ProductName - Quantity: @orderProduct.Quantity</li>
-                                }
-                            </ul>
-                        </td>
-                    </tr>
-                }
-            }
-        </tbody>
-    </table>
-</div>
+@if (User.IsInRole("customer"))
+{
+    <div>
+        <a class="btn" asp-area="" asp-controller="Order" asp-action="MyOrders">Orderhistorik</a>
+    </div>
+}
+@if (User.IsInRole("admin"))
+{
+    <div>
+        <a class="btn" asp-area="" asp-controller="Order" asp-action="AllOrders">Hantera ordrar</a>
+    </div>
+}
 
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Redigera</a> |
     <form asp-action="DeleteConfirmed" asp-route-id="@Model.Id" method="post" style="display:inline;">
-        <input type="submit" value="Delete" class="btn btn-danger" />
+        <input type="submit" value="Radera konto" class="btn btn-danger" />
     </form>
 </div>
-    

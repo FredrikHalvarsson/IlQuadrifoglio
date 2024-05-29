@@ -64,12 +64,19 @@ h1, h2, h3{
 }
 
 /* För textstycken */
-h4, h5, h6, p {
+h4, h5, p {
     font-family: "Big Shoulders Text", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
 }
+h6 {
+    font-family: "Big Shoulders Text", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: bold;
+    font-style: normal;
+}
+
 
     
 

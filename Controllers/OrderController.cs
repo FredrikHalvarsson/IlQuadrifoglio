@@ -35,6 +35,34 @@ namespace IlQuadrifoglio.Controllers
 
             return View(model);
         }
+        //[Authorize(Roles = "Customer")]
+        public async Task<IActionResult> MyOrders()
+        {
+            var userName = User.FindFirstValue(ClaimTypes.Name);
+            var order = await _apiService.GetUsersOrdersAsync(userName);
+
+            if (order == null)
+            {
+                return View(new List<Order>());
+            }
+
+            return View(order);
+        }
+
+
+        //[Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AllOrders()
+        {
+            var orders = await _apiService.GetOrderAsync();
+            if (orders == null)
+            {
+                return View(new List<Order>());
+            }
+
+            return View(orders);
+        }
+
+
 
         public async Task<IActionResult> OrderConfirmation(int orderId)
         {
@@ -57,7 +85,7 @@ namespace IlQuadrifoglio.Controllers
 
             // Sätt NewOrderDate till DateTime.Now
             order.OrderTime = DateTime.Now;
-            order.OrderStatus = Status.Pending;
+            order.OrderStatus = Status.Mottagen;
 
 
             // Anropa API:et för att uppdatera ordern med den uppdaterade NewOrderDate
@@ -103,34 +131,37 @@ namespace IlQuadrifoglio.Controllers
         }
 
         // GET: Orders/Edit/5
-        [HttpGet]
-        public async Task<IActionResult> Edit(int id)
-        {
-            var order = await _apiService.GetOrderByIdAsync(id);
-            if (order == null)
-            {
-                return NotFound();
-            }
-            return View(order);
-        }
+        //[HttpGet]
+        //public async Task<IActionResult> Edit(int id)
+        //{
+        //    var order = await _apiService.GetOrderByIdAsync(id);
+        //    if (order == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return View(order);
+        //}
 
         // POST: Orders/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Order order)
         {
-            if (id != order.OrderId)
+
+            var existingOrder = await _apiService.GetOrderByIdAsync(id);
+            if (existingOrder == null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                await _apiService.UpdateOrderAsync(id, order);
-                return RedirectToAction(nameof(Index));
-            }
-            return View(order);
+            // Uppdatera status för ordern
+            existingOrder.OrderStatus = order.OrderStatus;
+
+            await _apiService.UpdateOrderAsync(id, existingOrder);
+
+            return RedirectToAction(nameof(AllOrders));
         }
+
 
         // GET: Orders/Details/5
         [HttpGet]
